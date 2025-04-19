@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduConnect - Course Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/studentCourses.css" />
+  </head>
+  <body
+    style="
+      background: linear-gradient(
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5)
+        ),
+        url('../images/background.jpg') center center / cover no-repeat;
+    "
+  >
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Padhakoo</span>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <div class="menu-heading">Main Menu</div>
+          <a href="index.html" class="menu-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="courses.html" class="menu-item courses active">
+            <i class="fas fa-book"></i>
+            <span>My Courses</span>
+          </a>
+          <a href="#" class="menu-item announcements">
+            <i class="fas fa-bullhorn"></i>
+            <span>Announcements</span>
+          </a>
+          <a href="#" class="menu-item quiz">
+            <i class="fas fa-tasks"></i>
+            <span>Quizzes</span>
+          </a>
+          <a href="#" class="menu-item performance">
+            <i class="fas fa-chart-line"></i>
+            <span>Performance</span>
+          </a>
+          <a href="#" class="menu-item library">
+            <i class="fas fa-book-open"></i>
+            <span>Library</span>
+          </a>
+
+          <div class="menu-heading">Calendar</div>
+          <a href="#" class="menu-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Schedule</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fas fa-clock"></i>
+            <span>Deadlines</span>
+          </a>
+
+          <div class="menu-heading">Settings</div>
+          <a href="#" class="menu-item">
+            <i class="fas fa-user-cog"></i>
+            <span>Profile</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navbar -->
+      <div class="navbar">
+        <div class="navbar-left">
+          <button class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search course content..." />
+          </div>
+        </div>
+        <div class="navbar-right">
+          <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="calendar-toggle">
+            <i class="fas fa-calendar-alt"></i>
+          </button>
+          <div class="user-profile">
+            <img
+              src="https://i.pravatar.cc/150?img=32"
+              alt="User"
+              class="user-avatar"
+            />
+            <div class="user-info">
+              <div class="user-name">Alex Johnson</div>
+              <div class="user-role">Student</div>
+            </div>
+            <div class="profile-dropdown">
+              <div class="dropdown-user-info">
+                <img src="https://i.pravatar.cc/150?img=32" alt="User" />
+                <div class="user-name">Alex Johnson</div>
+                <div class="user-role">Student ID: ST12345</div>
+              </div>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-user"></i> My Profile
+              </a>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-cog"></i> Account Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Course Header -->
+        <div class="course-header">
+          <div
+            class="back-button"
+            onclick="window.location.href='courses.html'"
+          >
+            <i class="fas fa-arrow-left"></i> Back to Courses
+          </div>
+          <div class="course-info">
+            <h1 class="course-title">
+              Introduction to Programming with Python
+            </h1>
+            <div class="course-meta">
+              <div class="instructor">
+                <i class="fas fa-user"></i> Dr. Sarah Miller
+              </div>
+              <div class="duration"><i class="fas fa-clock"></i> 24 Hours</div>
+              <div class="modules"><i class="fas fa-book"></i> 8 Modules</div>
+            </div>
+          </div>
+          <div class="course-progress-container">
+            <div class="progress-info">
+              <span class="progress-label">Course Progress</span>
+              <span class="progress-percentage">75% Complete</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar" style="width: 75%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course Navigation -->
+        <div class="course-navigation">
+          <button class="course-nav-item active" data-tab="content">
+            <i class="fas fa-book"></i> Content
+          </button>
+          <button class="course-nav-item" data-tab="announcements">
+            <i class="fas fa-bullhorn"></i> Announcements
+          </button>
+          <button class="course-nav-item" data-tab="performance">
+            <i class="fas fa-chart-line"></i> Performance
+          </button>
+          <button class="course-nav-item" data-tab="discussion">
+            <i class="fas fa-comments"></i> Discussion
+          </button>
+          <button class="course-nav-item" data-tab="resources">
+            <i class="fas fa-folder"></i> Resources
+          </button>
+        </div>
+
+        <!-- Course Content Tab -->
+        <div class="course-tab active" id="content-tab">
+          <div class="section-header">
+            <div class="section-title">Course Content</div>
+            <div class="section-actions">
+              <button class="btn btn-outline btn-sm">
+                <i class="fas fa-compress-alt"></i> Collapse All
+              </button>
+              <button class="btn btn-outline btn-sm">
+                <i class="fas fa-expand-alt"></i> Expand All
+              </button>
+            </div>
+          </div>
+
+          <!-- Course modules/topics -->
+          <div class="course-modules">
+            <!-- Module 1 -->
+            <div class="module">
+              <div class="module-header">
+                <div class="module-title-container">
+                  <div class="module-icon">
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <div class="module-title">
+                    Module 1: Introduction to Python
+                  </div>
+                </div>
+                <div class="module-meta">
+                  <div class="module-progress">
+                    <div class="progress-bar-small" style="width: 100%"></div>
+                  </div>
+                  <div class="module-status">
+                    <i class="fas fa-check-circle"></i> Completed
+                  </div>
+                </div>
+              </div>
+              <div class="module-content">
+                <div class="lesson completed">
+                  <div class="lesson-icon">
+                    <i class="fas fa-video"></i>
+                  </div>
+                  <div class="lesson-info">
+                    <div class="lesson-title">
+                      1.1 Getting Started with Python
+                    </div>
+                    <div class="lesson-meta">
+                      <span class="lesson-duration">45 mins</span>
+                      <span class="lesson-completed">Completed</span>
+                    </div>
+                  </div>
+                  <div class="lesson-status">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                </div>
+                <div class="lesson completed">
+                  <div class="lesson-icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </div>
+                  <div class="lesson-info">
+                    <div class="lesson-title">
+                      1.2 Python Installation Guide
+                    </div>
+                    <div class="lesson-meta">
+                      <span class="lesson-type">PDF</span>
+                      <span class="lesson-completed">Completed</span>
+                    </div>
+                  </div>
+                  <div class="lesson-status">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                </div>
+                <div class="lesson completed has-submission">
+                  <div class="lesson-icon">
+                    <i class="fas fa-tasks"></i>
+                  </div>
+                  <div class="lesson-info">
+                    <div class="lesson-title">
+                      1.3 Setup Your Development Environment
+                    </div>
+                    <div class="lesson-meta">
+                      <span class="lesson-type">Assignment</span>
+                      <span class="lesson-completed">Submitted</span>
+                    </div>
+                  </div>
+                  <div class="lesson-actions">
+                    <button class="btn btn-sm btn-outline">
+                      View Submission
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="module">
+              <div class="module-header">
+                <div class="module-title-container">
+                  <div class="module-icon">
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <div class="module-title">Module 2: Python Basics</div>
+                </div>
+                <div class="module-meta">
+                  <div class="module-progress">
+                    <div class="progress-bar-small" style="width: 75%"></div>
+                  </div>
+                  <div class="module-status">
+                    <i class="fas fa-spinner"></i> In Progress
+                  </div>
+                </div>
+              </div>
+              <div class="module-content">
+                <div class="lesson completed">
+                  <div class="lesson-icon">
+                    <i class="fas fa-video"></i>
+                  </div>
+                  <div class="lesson-info">
+                    <div class="lesson-title">2.1 Variables and Data Types</div>
+                    <div class="lesson-meta">
+                      <span class="lesson-duration">1 hour</span>
+                      <span class="lesson-completed">Completed</span>
+                    </div>
+                  </div>
+                  <div class="lesson-status">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                </div>
+                <div class="lesson completed">
+                  <div class="lesson-icon">
+                    <i class="fas fa-file-code"></i>
+                  </div>
+                  <div class="lesson-info">
+                    <div class="lesson-title">
+                      2.2 Operators and Expressions
+                    </div>
+                    <div class="lesson-meta">
+                      <span class="lesson-duration">50 mins</span>
+                      <span class="lesson-completed">Completed</span>
+                    </div>
+                  </div>
+                  <div class="lesson-status">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                </div>
+                <div class="lesson in-progress has-submission">
+                  <div class="lesson-icon">
+                    <i class="fas fa-tasks"></i>
+                  </div>
+                  <div class="lesson-info">
+                    <div class="lesson-title">
+                      2.3 Control Flow: If-Else Statements
+                    </div>
+                    <div class="lesson-meta">
+                      <span class="lesson-type">Assignment</span>
+                      <span class="lesson-deadline">Due: Apr 22, 2025</span>
+                    </div>
+                  </div>
+                  <div class="lesson-actions">
+                    <button class="btn btn-sm btn-primary">
+                      Submit Assignment
+                    </button>
+                  </div>
+                </div>
+                <div class="lesson locked">
+                  <div class="lesson-icon">
+                    <i class="fas fa-lock"></i>
+                  </div>
+                  <div class="lesson-info">
+                    <div class="lesson-title">2.4 Loops in Python</div>
+                    <div class="lesson-meta">
+                      <span class="lesson-duration">45 mins</span>
+                      <span class="lesson-locked"
+                        >Complete previous lessons first</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="module">
+              <div class="module-header">
+                <div class="module-title-container">
+                  <div class="module-icon">
+                    <i class="fas fa-chevron-right"></i>
+                  </div>
+                  <div class="module-title">
+                    Module 3: Functions and Modules
+                  </div>
+                </div>
+                <div class="module-meta">
+                  <div class="module-progress">
+                    <div class="progress-bar-small" style="width: 0%"></div>
+                  </div>
+                  <div class="module-status">
+                    <i class="fas fa-lock"></i> Locked
+                  </div>
+                </div>
+              </div>
+              <div class="module-content" style="display: none">
+                <!-- Module content will be displayed when expanded -->
+              </div>
+            </div>
+
+            <!-- Additional modules would go here -->
+          </div>
+        </div>
+
+        <!-- Announcements Tab -->
+        <div class="course-tab" id="announcements-tab">
+          <div class="section-header">
+            <div class="section-title">Course Announcements</div>
+          </div>
+          <div class="announcements-container">
+            <div class="announcement">
+              <div class="announcement-header">
+                <div class="announcement-meta">
+                  <div class="announcement-title">New Assignment Posted</div>
+                  <div class="announcement-date">April 15, 2025</div>
+                </div>
+              </div>
+              <div class="announcement-content">
+                <p>Dear students,</p>
+                <p>
+                  I've posted a new assignment on conditional statements. Please
+                  complete it by April 22, 2025. This assignment will help you
+                  understand how to implement decision-making in your programs.
+                </p>
+                <p>
+                  If you have any questions, please post them in the discussion
+                  forum.
+                </p>
+                <p>Dr. Sarah Miller</p>
+              </div>
+            </div>
+
+            <div class="announcement">
+              <div class="announcement-header">
+                <div class="announcement-meta">
+                  <div class="announcement-title">Live Session Scheduled</div>
+                  <div class="announcement-date">April 10, 2025</div>
+                </div>
+              </div>
+              <div class="announcement-content">
+                <p>Hello everyone,</p>
+                <p>
+                  I'm planning a live session to address common questions about
+                  Python data types on April 21 at 3:00 PM. Please prepare your
+                  questions in advance and join the session.
+                </p>
+                <p>
+                  A recording will be available for those who cannot attend.
+                </p>
+                <p>Best regards,<br />Dr. Sarah Miller</p>
+              </div>
+            </div>
+
+            <div class="announcement">
+              <div class="announcement-header">
+                <div class="announcement-meta">
+                  <div class="announcement-title">Course Schedule Update</div>
+                  <div class="announcement-date">April 5, 2025</div>
+                </div>
+              </div>
+              <div class="announcement-content">
+                <p>Dear class,</p>
+                <p>
+                  Due to popular request, I've decided to extend the deadline
+                  for Module 2 assignments by one week. The new deadline is
+                  April 22, 2025.
+                </p>
+                <p>
+                  Use this extra time to thoroughly understand the concepts and
+                  produce quality work.
+                </p>
+                <p>Dr. Sarah Miller</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance Tab -->
+        <div class="course-tab" id="performance-tab">
+          <div class="section-header">
+            <div class="section-title">Course Performance</div>
+          </div>
+          <div class="performance-container">
+            <!-- Overall Progress -->
+            <div class="performance-card">
+              <div class="performance-card-header">
+                <div class="performance-card-title">Overall Progress</div>
+              </div>
+              <div class="performance-card-content">
+                <div class="performance-stat">
+                  <div class="progress-circle" data-percentage="75">
+                    <div class="progress-circle-inner">
+                      <div class="progress-percentage">75%</div>
+                      <div class="progress-label">Completed</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="performance-details">
+                  <div class="performance-detail-item">
+                    <span class="detail-label">Modules Completed:</span>
+                    <span class="detail-value">2/8</span>
+                  </div>
+                  <div class="performance-detail-item">
+                    <span class="detail-label">Lessons Completed:</span>
+                    <span class="detail-value">6/24</span>
+                  </div>
+                  <div class="performance-detail-item">
+                    <span class="detail-label">Time Spent:</span>
+                    <span class="detail-value">12.5 hours</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Assignments Status -->
+            <div class="performance-card">
+              <div class="performance-card-header">
+                <div class="performance-card-title">Assignments Status</div>
+              </div>
+              <div class="performance-card-content">
+                <div class="assignments-status">
+                  <div class="status-item">
+                    <div class="status-icon completed">
+                      <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="status-info">
+                      <div class="status-title">Completed</div>
+                      <div class="status-count">2</div>
+                    </div>
+                  </div>
+                  <div class="status-item">
+                    <div class="status-icon pending">
+                      <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="status-info">
+                      <div class="status-title">Pending</div>
+                      <div class="status-count">1</div>
+                    </div>
+                  </div>
+                  <div class="status-item">
+                    <div class="status-icon upcoming">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="status-info">
+                      <div class="status-title">Upcoming</div>
+                      <div class="status-count">3</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="assignments-list">
+                  <div class="assignment-item">
+                    <div class="assignment-info">
+                      <div class="assignment-title">
+                        Setup Development Environment
+                      </div>
+                      <div class="assignment-module">Module 1</div>
+                    </div>
+                    <div class="assignment-status completed">
+                      <i class="fas fa-check-circle"></i> Completed
+                    </div>
+                    <div class="assignment-grade">
+                      <div class="grade">95%</div>
+                    </div>
+                  </div>
+                  <div class="assignment-item">
+                    <div class="assignment-info">
+                      <div class="assignment-title">Variables Assignment</div>
+                      <div class="assignment-module">Module 2</div>
+                    </div>
+                    <div class="assignment-status completed">
+                      <i class="fas fa-check-circle"></i> Completed
+                    </div>
+                    <div class="assignment-grade">
+                      <div class="grade">90%</div>
+                    </div>
+                  </div>
+                  <div class="assignment-item">
+                    <div class="assignment-info">
+                      <div class="assignment-title">
+                        Control Flow Assignment
+                      </div>
+                      <div class="assignment-module">Module 2</div>
+                    </div>
+                    <div class="assignment-status pending">
+                      <i class="fas fa-clock"></i> Due Apr 22
+                    </div>
+                    <div class="assignment-grade">
+                      <div class="grade">-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quiz Performance -->
+            <div class="performance-card">
+              <div class="performance-card-header">
+                <div class="performance-card-title">Quiz Performance</div>
+              </div>
+              <div class="performance-card-content">
+                <div class="quiz-performance">
+                  <div class="quiz-chart-container">
+                    <canvas id="quizChart" width="300" height="200"></canvas>
+                  </div>
+                  <div class="quiz-stats">
+                    <div class="quiz-stat-item">
+                      <div class="quiz-stat-label">Average Score</div>
+                      <div class="quiz-stat-value">85%</div>
+                    </div>
+                    <div class="quiz-stat-item">
+                      <div class="quiz-stat-label">Highest Score</div>
+                      <div class="quiz-stat-value">95%</div>
+                    </div>
+                    <div class="quiz-stat-item">
+                      <div class="quiz-stat-label">Quizzes Taken</div>
+                      <div class="quiz-stat-value">2/5</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discussion Tab -->
+        <div class="course-tab" id="discussion-tab">
+          <div class="section-header">
+            <div class="section-title">Discussion Forum</div>
+            <div class="section-actions">
+              <button class="btn btn-primary btn-sm">New Discussion</button>
+            </div>
+          </div>
+          <div class="discussion-container">
+            <div class="discussion-list">
+              <div class="discussion-item">
+                <div class="discussion-avatar">
+                  <img src="https://i.pravatar.cc/150?img=45" alt="User" />
+                </div>
+                <div class="discussion-content">
+                  <div class="discussion-header">
+                    <div class="discussion-title">
+                      Help with List Comprehensions
+                    </div>
+                    <div class="discussion-meta">
+                      <div class="discussion-author">Emily Zhang</div>
+                      <div class="discussion-date">April 15, 2025</div>
+                    </div>
+                  </div>
+                  <div class="discussion-body">
+                    <p>
+                      I'm having trouble understanding list comprehensions.
+                      Could someone explain them with an example?
+                    </p>
+                  </div>
+                  <div class="discussion-footer">
+                    <div class="discussion-stats">
+                      <div class="stat">
+                        <i class="fas fa-comment"></i> 5 replies
+                      </div>
+                      <div class="stat">
+                        <i class="fas fa-eye"></i> 24 views
+                      </div>
+                    </div>
+                    <button class="btn btn-text">View Discussion</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="discussion-item">
+                <div class="discussion-avatar">
+                  <img src="https://i.pravatar.cc/150?img=68" alt="User" />
+                </div>
+                <div class="discussion-content">
+                  <div class="discussion-header">
+                    <div class="discussion-title">
+                      Installing Python on Linux
+                    </div>
+                    <div class="discussion-meta">
+                      <div class="discussion-author">David Lee</div>
+                      <div class="discussion-date">April 12, 2025</div>
+                    </div>
+                  </div>
+                  <div class="discussion-body">
+                    <p>
+                      I'm trying to install Python on Ubuntu but getting some
+                      errors. Has anyone else faced this issue?
+                    </p>
+                  </div>
+                  <div class="discussion-footer">
+                    <div class="discussion-stats">
+                      <div class="stat">
+                        <i class="fas fa-comment"></i> 8 replies
+                      </div>
+                      <div class="stat">
+                        <i class="fas fa-eye"></i> 37 views
+                      </div>
+                    </div>
+                    <button class="btn btn-text">View Discussion</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="discussion-item">
+                <div class="discussion-avatar">
+                  <img src="https://i.pravatar.cc/150?img=32" alt="User" />
+                </div>
+                <div class="discussion-content">
+                  <div class="discussion-header">
+                    <div class="discussion-title">
+                      Resources for Python Libraries
+                    </div>
+                    <div class="discussion-meta">
+                      <div class="discussion-author">Alex Johnson</div>
+                      <div class="discussion-date">April 10, 2025</div>
+                    </div>
+                  </div>
+                  <div class="discussion-body">
+                    <p>
+                      I'm looking for some good resources to learn about Python
+                      libraries like NumPy and Pandas. Any recommendations?
+                    </p>
+                  </div>
+                  <div class="discussion-footer">
+                    <div class="discussion-stats">
+                      <div class="stat">
+                        <i class="fas fa-comment"></i> 12 replies
+                      </div>
+                      <div class="stat">
+                        <i class="fas fa-eye"></i> 53 views
+                      </div>
+                    </div>
+                    <button class="btn btn-text">View Discussion</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources Tab -->
+        <div class="course-tab" id="resources-tab">
+          <div class="section-header">
+            <div class="section-title">Course Resources</div>
+          </div>
+          <div class="resources-container">
+            <div class="resource-category">
+              <div class="resource-category-title">Course Materials</div>
+              <div class="resource-list">
+                <div class="resource-item">
+                  <div class="resource-icon pdf">
+                    <i class="fas fa-file-pdf"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">Course Syllabus</div>
+                    <div class="resource-meta">PDF • 2.5 MB</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-download"></i> Download
+                    </button>
+                  </div>
+                </div>
+                <div class="resource-item">
+                  <div class="resource-icon ppt">
+                    <i class="fas fa-file-powerpoint"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">Python Basics Slides</div>
+                    <div class="resource-meta">PPT • 5.8 MB</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-download"></i> Download
+                    </button>
+                  </div>
+                </div>
+                <div class="resource-item">
+                  <div class="resource-icon doc">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">Python Cheat Sheet</div>
+                    <div class="resource-meta">DOC • 1.2 MB</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-download"></i> Download
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="resource-category">
+              <div class="resource-category-title">Reference Books</div>
+              <div class="resource-list">
+                <div class="resource-item">
+                  <div class="resource-icon book">
+                    <i class="fas fa-book"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">Python Crash Course</div>
+                    <div class="resource-meta">Eric Matthes • 2nd Edition</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-external-link-alt"></i> View
+                    </button>
+                  </div>
+                </div>
+                <div class="resource-item">
+                  <div class="resource-icon book">
+                    <i class="fas fa-book"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">
+                      Automate the Boring Stuff with Python
+                    </div>
+                    <div class="resource-meta">Al Sweigart • 2nd Edition</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-external-link-alt"></i> View
+                    </button>
+                  </div>
+                </div>
+                <div class="resource-item">
+                  <div class="resource-icon book">
+                    <i class="fas fa-book"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">Learning Python</div>
+                    <div class="resource-meta">Mark Lutz • 5th Edition</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-external-link-alt"></i> View
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="resource-category">
+              <div class="resource-category-title">External Resources</div>
+              <div class="resource-list">
+                <div class="resource-item">
+                  <div class="resource-icon link">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">
+                      Python Official Documentation
+                    </div>
+                    <div class="resource-meta">python.org</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-external-link-alt"></i> Visit
+                    </button>
+                  </div>
+                </div>
+                <div class="resource-item">
+                  <div class="resource-icon link">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">Stack Overflow Python</div>
+                    <div class="resource-meta">stackoverflow.com</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-external-link-alt"></i> Visit
+                    </button>
+                  </div>
+                </div>
+                <div class="resource-item">
+                  <div class="resource-icon link">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="resource-info">
+                    <div class="resource-title">Real Python Tutorials</div>
+                    <div class="resource-meta">realpython.com</div>
+                  </div>
+                  <div class="resource-actions">
+                    <button class="btn btn-sm btn-outline">
+                      <i class="fas fa-external-link-alt"></i> Visit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar Sidebar -->
+      <div class="calendar-sidebar">
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <div class="calendar-title">April 2025</div>
+            <div class="calendar-nav">
+              <button class="calendar-nav-btn">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="calendar-nav-btn">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="calendar-grid">
+            <div class="calendar-weekday">Sun</div>
+            <div class="calendar-weekday">Mon</div>
+            <div class="calendar-weekday">Tue</div>
+            <div class="calendar-weekday">Wed</div>
+            <div class="calendar-weekday">Thu</div>
+            <div class="calendar-weekday">Fri</div>
+            <div class="calendar-weekday">Sat</div>
+
+            <!-- Calendar days - first week -->
+            <div class="calendar-day other-month">30</div>
+            <div class="calendar-day other-month">31</div>
+            <div class="calendar-day">1</div>
+            <div class="calendar-day">2</div>
+            <div class="calendar-day">3</div>
+            <div class="calendar-day assignment-deadline">4</div>
+            <div class="calendar-day">5</div>
+
+            <!-- Second week -->
+            <div class="calendar-day">6</div>
+            <div class="calendar-day">7</div>
+            <div class="calendar-day lesson-deadline">8</div>
+            <div class="calendar-day">9</div>
+            <div class="calendar-day">10</div>
+            <div class="calendar-day quiz-deadline">11</div>
+            <div class="calendar-day">12</div>
+
+            <!-- Third week -->
+            <div class="calendar-day">13</div>
+            <div class="calendar-day assignment-deadline lesson-deadline">
+              14
+            </div>
+            <div class="calendar-day">15</div>
+            <div class="calendar-day">16</div>
+            <div class="calendar-day">17</div>
+            <div class="calendar-day">18</div>
+            <div class="calendar-day today">19</div>
+
+            <!-- Fourth week -->
+            <div class="calendar-day">20</div>
+            <div class="calendar-day">21</div>
+            <div class="calendar-day assignment-deadline">22</div>
+            <div class="calendar-day">23</div>
+            <div class="calendar-day quiz-deadline">24</div>
+            <div class="calendar-day">25</div>
+            <div class="calendar-day">26</div>
+
+            <!-- Fifth week -->
+            <div class="calendar-day">27</div>
+            <div class="calendar-day lesson-deadline">28</div>
+            <div class="calendar-day">29</div>
+            <div class="calendar-day">30</div>
+            <div class="calendar-day other-month">1</div>
+            <div class="calendar-day other-month">2</div>
+            <div class="calendar-day other-month">3</div>
+          </div>
+
+          <!-- Calendar legend -->
+          <div class="calendar-legend">
+            <div class="legend-item">
+              <div class="legend-dot assignment"></div>
+              <span>Assignment</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot lesson"></div>
+              <span>Lesson</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot quiz"></div>
+              <span>Quiz</span>
+            </div>
+          </div>
+
+          <div class="upcoming-events">
+            <div class="upcoming-events-header">Upcoming Events</div>
+            <div class="event-list">
+              <div class="event-item assignment">
+                <div class="event-title">Control Flow Assignment</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Intro to Programming
+                  </div>
+                  <div class="event-time">Due Apr 22</div>
+                </div>
+              </div>
+              <div class="event-item quiz">
+                <div class="event-title">Python Basics Quiz</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Intro to Programming
+                  </div>
+                  <div class="event-time">Apr 24, 10:00 AM</div>
+                </div>
+              </div>
+              <div class="event-item lesson">
+                <div class="event-title">Live Session: Python Functions</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Intro to Programming
+                  </div>
+                  <div class="event-time">Apr 28, 2:00 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle theme between light and dark
+      const themeToggle = document.querySelector(".theme-toggle");
+      themeToggle.addEventListener("click", () => {
+        const htmlElement = document.documentElement;
+        const currentTheme = htmlElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        htmlElement.setAttribute("data-theme", newTheme);
+
+        // Update theme icon
+        const themeIcon = themeToggle.querySelector("i");
+        themeIcon.className =
+          newTheme === "light" ? "fas fa-moon" : "fas fa-sun";
+      });
+
+      // Toggle sidebar on mobile
+      const menuToggle = document.querySelector(".menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+
+      // Toggle calendar sidebar on tablet/mobile
+      const calendarToggle = document.querySelector(".calendar-toggle");
+      const calendarSidebar = document.querySelector(".calendar-sidebar");
+      calendarToggle.addEventListener("click", () => {
+        calendarSidebar.classList.toggle("active");
+      });
+
+      // User profile dropdown
+      const userProfile = document.querySelector(".user-profile");
+      const profileDropdown = document.querySelector(".profile-dropdown");
+      userProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("active");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", () => {
+        profileDropdown.classList.remove("active");
+      });
+
+      // Course tab navigation
+      const tabButtons = document.querySelectorAll(".course-nav-item");
+      const tabContents = document.querySelectorAll(".course-tab");
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Remove active class from all buttons and tabs
+          tabButtons.forEach((btn) => btn.classList.remove("active"));
+          tabContents.forEach((tab) => tab.classList.remove("active"));
+
+          // Add active class to clicked button
+          button.classList.add("active");
+
+          // Activate corresponding tab
+          const tabId = button.getAttribute("data-tab") + "-tab";
+          document.getElementById(tabId).classList.add("active");
+        });
+      });
+
+      // Module expand/collapse
+      const moduleHeaders = document.querySelectorAll(".module-header");
+      moduleHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
+          const module = header.parentElement;
+          const moduleContent = module.querySelector(".module-content");
+          const moduleIcon = header.querySelector(".module-icon i");
+
+          // Toggle content visibility
+          if (moduleContent.style.display === "none") {
+            moduleContent.style.display = "block";
+            moduleIcon.className = "fas fa-chevron-down";
+          } else {
+            moduleContent.style.display = "none";
+            moduleIcon.className = "fas fa-chevron-right";
+          }
+        });
+      });
+
+      // Simple chart for quiz performance (placeholder)
+      // In a real implementation, you would use a library like Chart.js
+      // This is just a placeholder to show how it might be set up
+      const setupQuizChart = () => {
+        const ctx = document.getElementById("quizChart");
+        if (ctx) {
+          // Here you would initialize your chart
+          // For example, with Chart.js:
+          // new Chart(ctx, { ... });
+
+          // For now, we'll just add a placeholder note
+          ctx.style.display = "flex";
+          ctx.style.alignItems = "center";
+          ctx.style.justifyContent = "center";
+          ctx.style.backgroundColor = "#f0f0f0";
+          ctx.style.borderRadius = "8px";
+          ctx.innerHTML = "<div>Quiz performance chart would render here</div>";
+        }
+      };
+
+      // Call chart setup on page load
+      document.addEventListener("DOMContentLoaded", setupQuizChart);
+    </script>
+  </body>
+</html>
