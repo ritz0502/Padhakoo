@@ -1,11 +1,8 @@
 {
-  
-  
-    "name": "padhakoo",
-    "version": "1.0.0",
-    "main": "server.js",
-    
-  
+  "name": "padhakoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "landingpage.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
