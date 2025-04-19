@@ -63,9 +63,11 @@ app.use('/api/auth/login', authRoutes);
 // Serve the landing page at root
 
 // Serve the login page
+// Serve the landing page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'student-login.html'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'landingpage.html'));
 });
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -73,7 +75,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3006;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
