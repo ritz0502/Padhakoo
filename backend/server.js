@@ -16,6 +16,7 @@ const authRoutes = require('./routes/authRoutes');
 
 // Connect to MongoDB
 const db = require('./config/db');
+db();
 
 const app = express();
 
@@ -50,26 +51,25 @@ require('./config/passport')(passport);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
 // Routes
 
 app.use('/api/courses', courseRoutes);
 app.use('/api/default', defaultRoutes);
-app.use('/api/auth/login', authRoutes);
+app.use('/api/login', authRoutes);
+
 
 // Serve the login page
 // Serve the landing page at root
 
 // Serve the login page
+// Serve the landing page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'student-login.html'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'landingpage.html'));
 });
 
-app.get('/teacher-course', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/pages/teacherCourse.html'));
-});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -79,5 +79,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(Server running on port ${PORT});
 });
