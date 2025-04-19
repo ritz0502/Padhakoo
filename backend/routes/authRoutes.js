@@ -79,6 +79,7 @@ router.get('/logout', (req, res) => {
 });
 
 // Google OAuth Routes
+<<<<<<< HEAD
 router.get('/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
@@ -86,10 +87,24 @@ router.get('/google',
 router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
+=======
+// Google OAuth Routes
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login.html' }),
+  (req, res) => {
+    console.log('User authenticated:', req.user);
+>>>>>>> 5e8918aa10c007464dd906b02003a939364de3bb
     res.redirect('/');
   }
 );
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5e8918aa10c007464dd906b02003a939364de3bb
 // GitHub OAuth Routes
 router.get('/github',
   passport.authenticate('github', { scope: ['user:email'] })
@@ -115,7 +130,13 @@ router.get('/facebook/callback',
 );
 
 // Route for checking authentication status
+<<<<<<< HEAD
 router.get('/status', (req, res) => {
+=======
+// Route for checking authentication status
+router.get('/status', (req, res) => {
+  console.log("User authenticated:", req.isAuthenticated()); // Add this log for debugging
+>>>>>>> 5e8918aa10c007464dd906b02003a939364de3bb
   if (req.isAuthenticated()) {
     return res.status(200).json({
       isAuthenticated: true,
@@ -131,6 +152,10 @@ router.get('/status', (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5e8918aa10c007464dd906b02003a939364de3bb
 // Registration route
 router.post('/register', async (req, res) => {
   try {
