@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Redirect to dashboard after successful login
                 // Redirect to teacherDash.html after successful login
 setTimeout(() => {
-    window.location.href = '/pages/studentDash.html';
+    window.location.href = 'public/pages/studentDash.html';
 }, 1500);
 
             } else {
