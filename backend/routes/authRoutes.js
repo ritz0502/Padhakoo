@@ -2,7 +2,23 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/User');
+// ✅ Hardcoded user for testing
+const testUser = {
+  email: 'test@padhakoo.com',
+  password: 'test123'
+};
 
+router.post('/', (req, res) => {
+  const { email, password } = req.body;
+
+  console.log("Login attempt:", email, password);
+
+  if (email === testUser.email && password === testUser.password) {
+    return res.status(200).json({ message: 'Login successful' });
+  } else {
+    return res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
 // Local login
 router.post('/login', async (req, res, next) => {
   try {
