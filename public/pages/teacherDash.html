@@ -1747,6 +1747,147 @@
           display: none;
         }
       }
+      /* Add/modify these media queries in your existing CSS */
+
+      @media (max-width: 768px) {
+        /* Improve sidebar transition */
+        .sidebar {
+          transition: transform 0.3s ease, width 0.3s ease;
+          box-shadow: none;
+        }
+
+        .sidebar.active {
+          box-shadow: 2px 0 15px var(--shadow);
+        }
+
+        /* Make main content full width */
+        .main-content {
+          padding: 15px;
+          padding-top: 80px;
+        }
+
+        /* Adjust navbar for better mobile experience */
+        .navbar {
+          padding: 10px 15px;
+        }
+
+        /* Improve grid layouts for small screens */
+        .stats-grid,
+        .analytics-cards,
+        .course-cards {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        /* Increase touch targets for better mobile interaction */
+        .btn {
+          padding: 10px 15px;
+        }
+
+        .menu-item,
+        .activity-tab,
+        .course-tab {
+          padding: 14px 20px;
+        }
+      }
+
+      /* Add specific styles for extra small screens */
+      @media (max-width: 480px) {
+        /* Make text more readable on small screens */
+        body {
+          font-size: 14px;
+        }
+
+        /* Adjust section padding */
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        /* Make cards take full width */
+        .categories-grid {
+          grid-template-columns: 1fr;
+        }
+
+        /* Make modals more mobile-friendly */
+        .modal {
+          width: 95%;
+          max-width: none;
+        }
+
+        /* Better form controls for mobile */
+        .form-control {
+          padding: 12px;
+          font-size: 16px; /* Prevents zoom on input focus on iOS */
+        }
+
+        /* Improve table display on tiny screens */
+        .analytics-table th,
+        .analytics-table td {
+          padding: 10px 8px;
+          font-size: 13px;
+        }
+
+        /* Adjust chat UI for mobile */
+        .message {
+          max-width: 85%;
+        }
+
+        /* Make dropdown more accessible on mobile */
+        .profile-dropdown {
+          width: 250px;
+          right: -70px;
+        }
+
+        /* Course content adjustments */
+        .course-info-header {
+          flex-direction: column;
+        }
+
+        .module-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+      }
+
+      /* Fix user dropdown positioning */
+      @media (max-width: 992px) {
+        .profile-dropdown:before {
+          right: 10px;
+        }
+      }
+
+      /* Make sure images don't break layout */
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Improve form input on Android */
+      input,
+      textarea,
+      select {
+        font-size: 16px; /* Prevents auto-zoom on focus */
+        -webkit-appearance: none; /* Removes default styling on some browsers */
+        border-radius: 8px;
+      }
+
+      /* Add better touch feedback for mobile */
+      .menu-item,
+      .btn,
+      .category-card,
+      .course-card,
+      .activity-item {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .menu-item:active,
+      .btn:active,
+      .activity-item:active {
+        opacity: 0.7;
+      }
     </style>
   </head>
   <body>
