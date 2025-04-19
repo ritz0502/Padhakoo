@@ -50,7 +50,7 @@ require('./config/passport')(passport);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 
 // Routes
@@ -65,6 +65,10 @@ app.use('/api/auth/login', authRoutes);
 // Serve the login page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'student-login.html'));
+});
+
+app.get('/teacher-course', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/pages/teacherCourse.html'));
 });
 
 // Error handling middleware
