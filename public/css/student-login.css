@@ -91,6 +91,7 @@ body::before {
 .login-header h1 {
     color: var(--text-primary);
     font-size: 28px;
+    
     margin-bottom: 0px;
 }
 
