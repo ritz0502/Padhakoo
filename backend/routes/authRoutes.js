@@ -85,7 +85,6 @@ router.get('/status', (req, res) => {
   }
 });
 
-
 // Registration route
 router.post('/register', async (req, res) => {
   try {
