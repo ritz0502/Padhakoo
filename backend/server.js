@@ -16,6 +16,7 @@ const authRoutes = require('./routes/authRoutes');
 
 // Connect to MongoDB
 const db = require('./config/db');
+db();
 
 const app = express();
 
@@ -57,7 +58,8 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/api/courses', courseRoutes);
 app.use('/api/default', defaultRoutes);
-app.use('/api/auth/login', authRoutes);
+app.use('/api/login', authRoutes);
+
 
 // Serve the login page
 // Serve the landing page at root
@@ -75,7 +77,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
