@@ -1630,7 +1630,7 @@
         }
 
         .menu-item {
-          padding: 12px 0;
+          padding: 12;
           justify-content: center;
         }
 
@@ -1656,67 +1656,104 @@
       }
 
       @media (max-width: 768px) {
+        /* Improve sidebar behavior */
         .sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
           width: 0;
+          z-index: 1000; /* Higher z-index to stay above content */
           transform: translateX(-100%);
-          z-index: 200;
+          transition: transform 0.3s ease, width 0.3s ease;
+          overflow-y: auto;
+          box-shadow: none;
         }
 
         .sidebar.active {
           width: 250px;
           transform: translateX(0);
+          box-shadow: 2px 0 15px var(--shadow);
+        }
+
+        .sidebar .logo span,
+        .sidebar .menu-item span,
+        .sidebar .menu-heading {
+          display: none; /* Hidden by default */
         }
 
         .sidebar.active .logo span,
-        .sidebar.active .menu-heading,
-        .sidebar.active .menu-item span {
-          display: inline-block;
+        .sidebar.active .menu-item span,
+        .sidebar.active .menu-heading {
+          display: inline-block; /* Show when sidebar is active */
         }
 
+        /* Fix alignment and padding when sidebar is active */
         .sidebar.active .menu-item {
           padding: 12px 20px;
           justify-content: flex-start;
         }
 
+        .sidebar.active .menu-heading {
+          padding: 8px 20px;
+          font-size: 12px; /* Restore the original font size */
+          text-align: left;
+        }
+
+        .sidebar.active .sidebar-header {
+          justify-content: space-between;
+          padding: 20px;
+        }
+
+        /* Fix main content so it doesn't get overlapped */
         .main-content {
           margin-left: 0;
-          padding-top: 70px;
+          width: 100%;
+          transition: margin-left 0.3s ease;
+          padding: 15px;
+          padding-top: 80px;
         }
 
+        /* Fix navbar positioning */
         .navbar {
           left: 0;
+          width: 100%;
+          z-index: 99;
         }
 
+        /* Make menu toggle more prominent */
         .menu-toggle {
           display: block;
+          font-size: 24px;
+          padding: 5px;
+          background: transparent;
+          border-radius: 5px;
         }
 
-        .search-bar {
+        .menu-toggle:hover {
+          background-color: var(--bg);
+        }
+
+        /* When sidebar is active, add padding to prevent content overlap */
+        body.sidebar-active .main-content {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+
+        /* Add overlay when sidebar is open */
+        .sidebar-overlay {
           display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 999;
         }
 
-        .chat-container {
-          flex-direction: column;
-          height: 700px;
-        }
-
-        .chat-sidebar {
-          width: 100%;
-          height: 300px;
-          border-right: none;
-          border-bottom: 1px solid var(--border);
-        }
-
-        .analytics-cards {
-          grid-template-columns: 1fr;
-        }
-
-        .course-cards {
-          grid-template-columns: 1fr;
-        }
-
-        .categories-grid {
-          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        .sidebar-overlay.active {
+          display: block;
         }
       }
 
@@ -1747,6 +1784,153 @@
           display: none;
         }
       }
+      /* Add/modify these media queries in your existing CSS */
+
+      @media (max-width: 768px) {
+        /* Improve sidebar transition */
+        .sidebar {
+          transition: transform 0.3s ease, width 0.3s ease;
+          box-shadow: none;
+        }
+
+        .sidebar.active {
+          box-shadow: 2px 0 15px var(--shadow);
+        }
+
+        /* Make main content full width */
+        .main-content {
+          padding: 15px;
+          padding-top: 80px;
+        }
+
+        /* Adjust navbar for better mobile experience */
+        .navbar {
+          padding: 10px 15px;
+        }
+
+        /* Improve grid layouts for small screens */
+        .stats-grid,
+        .analytics-cards,
+        .course-cards {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        /* Increase touch targets for better mobile interaction */
+        .btn {
+          padding: 10px 15px;
+        }
+
+        .menu-item,
+        .activity-tab,
+        .course-tab {
+          padding: 14px 20px;
+        }
+      }
+
+      /* Add specific styles for extra small screens */
+      @media (max-width: 480px) {
+        /* Make text more readable on small screens */
+        body {
+          font-size: 14px;
+        }
+
+        /* Adjust section padding */
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        .sidebar {
+          width: 0;
+        }
+
+        .sidebar.active {
+          width: 85%; /* Wider sidebar for small screens */
+        }
+        /* Make cards take full width */
+        .categories-grid {
+          grid-template-columns: 1fr;
+        }
+
+        /* Make modals more mobile-friendly */
+        .modal {
+          width: 95%;
+          max-width: none;
+        }
+
+        /* Better form controls for mobile */
+        .form-control {
+          padding: 12px;
+          font-size: 16px; /* Prevents zoom on input focus on iOS */
+        }
+
+        /* Improve table display on tiny screens */
+        .analytics-table th,
+        .analytics-table td {
+          padding: 10px 8px;
+          font-size: 13px;
+        }
+
+        /* Adjust chat UI for mobile */
+        .message {
+          max-width: 85%;
+        }
+
+        /* Make dropdown more accessible on mobile */
+        .profile-dropdown {
+          width: 250px;
+          right: -70px;
+        }
+
+        /* Course content adjustments */
+        .course-info-header {
+          flex-direction: column;
+        }
+
+        .module-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+      }
+
+      /* Fix user dropdown positioning */
+      @media (max-width: 992px) {
+        .profile-dropdown:before {
+          right: 10px;
+        }
+      }
+
+      /* Make sure images don't break layout */
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Improve form input on Android */
+      input,
+      textarea,
+      select {
+        font-size: 16px; /* Prevents auto-zoom on focus */
+        -webkit-appearance: none; /* Removes default styling on some browsers */
+        border-radius: 8px;
+      }
+
+      /* Add better touch feedback for mobile */
+      .menu-item,
+      .btn,
+      .category-card,
+      .course-card,
+      .activity-item {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .menu-item:active,
+      .btn:active,
+      .activity-item:active {
+        opacity: 0.7;
+      }
     </style>
   </head>
   <body>
@@ -1754,8 +1938,7 @@
     <div class="sidebar">
       <div class="sidebar-header">
         <a href="#" class="logo">
-          <i class="fas fa-graduation-cap"></i>
-          <span>EduConnect</span>
+          <span>Padhakoo</span>
         </a>
       </div>
       <div class="sidebar-menu">
@@ -1871,43 +2054,6 @@
     <div class="main-content">
       <!-- Dashboard Content -->
       <div class="dashboard-content">
-        <!-- Stats Section -->
-        <div class="stats-section">
-          <div class="section-header">
-            <h2 class="section-title">Quick Stats</h2>
-          </div>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-icon blue">
-                <i class="fas fa-users"></i>
-              </div>
-              <div class="stat-value">248</div>
-              <div class="stat-label">Total Students</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon green">
-                <i class="fas fa-book"></i>
-              </div>
-              <div class="stat-value">6</div>
-              <div class="stat-label">Active Courses</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon orange">
-                <i class="fas fa-tasks"></i>
-              </div>
-              <div class="stat-value">14</div>
-              <div class="stat-label">Pending Assignments</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon red">
-                <i class="fas fa-puzzle-piece"></i>
-              </div>
-              <div class="stat-value">8</div>
-              <div class="stat-label">Active Quizzes</div>
-            </div>
-          </div>
-        </div>
-
         <!-- Course Categories -->
         <div class="categories-section">
           <div class="section-header">
@@ -1924,259 +2070,178 @@
             </div>
             <div class="category-card">
               <div class="category-icon">
-                <i class="fas fa-flask"></i>
+                <i class="fas fa-lightbulb"></i>
               </div>
-              <div class="category-name">Science</div>
+              <div class="category-name">Electronics</div>
               <div class="category-count">8 Courses</div>
             </div>
             <div class="category-card">
               <div class="category-icon">
-                <i class="fas fa-calculator"></i>
+                <i class="fas fa-laptop"></i>
               </div>
-              <div class="category-name">Mathematics</div>
+              <div class="category-name">Computer Engineering</div>
               <div class="category-count">7 Courses</div>
             </div>
             <div class="category-card">
               <div class="category-icon">
                 <i class="fas fa-chart-line"></i>
               </div>
-              <div class="category-name">Business</div>
+              <div class="category-name">Information Technology</div>
               <div class="category-count">5 Courses</div>
             </div>
             <div class="category-card">
               <div class="category-icon">
-                <i class="fas fa-palette"></i>
+                <i class="fas fa-pen-to-square"></i>
               </div>
-              <div class="category-name">Arts</div>
-              <div class="category-count">6 Courses</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- My Courses -->
-        <div class="courses-section">
-          <div class="section-header">
-            <h2 class="section-title">My Courses</h2>
-            <a href="#" class="view-all">View All</a>
-          </div>
-          <div class="course-cards">
-            <div class="course-card">
-              <div class="course-image">
-                <img src="/api/placeholder/300/150" alt="Course Image" />
-                <div class="course-badge">Active</div>
-              </div>
-              <div class="course-details">
-                <h3 class="course-title">Introduction to Web Development</h3>
-                <div class="course-meta">
-                  <div class="students-count">
-                    <i class="fas fa-users"></i> 42 Students
-                  </div>
-                  <div class="completion-rate">
-                    <i class="fas fa-chart-line"></i> 78% Completion
-                  </div>
-                </div>
-                <div class="course-progress">
-                  <div class="progress-bar" style="width: 78%"></div>
-                </div>
-                <div class="course-actions">
-                  <div class="action-btns">
-                    <button class="btn btn-primary">
-                      <i class="fas fa-eye"></i> View Course
-                    </button>
-                    <button class="btn btn-outline">
-                      <i class="fas fa-cog"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="course-card">
-              <div class="course-image">
-                <img src="/api/placeholder/300/150" alt="Course Image" />
-                <div class="course-badge">Active</div>
-              </div>
-              <div class="course-details">
-                <h3 class="course-title">Advanced Programming Concepts</h3>
-                <div class="course-meta">
-                  <div class="students-count">
-                    <i class="fas fa-users"></i> 36 Students
-                  </div>
-                  <div class="completion-rate">
-                    <i class="fas fa-chart-line"></i> 65% Completion
-                  </div>
-                </div>
-                <div class="course-progress">
-                  <div class="progress-bar" style="width: 65%"></div>
-                </div>
-                <div class="course-actions">
-                  <div class="action-btns">
-                    <button class="btn btn-primary">
-                      <i class="fas fa-eye"></i> View Course
-                    </button>
-                    <button class="btn btn-outline">
-                      <i class="fas fa-cog"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="course-card">
-              <div class="course-image">
-                <img src="/api/placeholder/300/150" alt="Course Image" />
-                <div class="course-badge">Active</div>
-              </div>
-              <div class="course-details">
-                <h3 class="course-title">Data Structures and Algorithms</h3>
-                <div class="course-meta">
-                  <div class="students-count">
-                    <i class="fas fa-users"></i> 51 Students
-                  </div>
-                  <div class="completion-rate">
-                    <i class="fas fa-chart-line"></i> 92% Completion
-                  </div>
-                </div>
-                <div class="course-progress">
-                  <div class="progress-bar" style="width: 92%"></div>
-                </div>
-                <div class="course-actions">
-                  <div class="action-btns">
-                    <button class="btn btn-primary">
-                      <i class="fas fa-eye"></i> View Course
-                    </button>
-                    <button class="btn btn-outline">
-                      <i class="fas fa-cog"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="activity-section">
-          <div class="section-header">
-            <h2 class="section-title">Recent Activity</h2>
-          </div>
-          <div class="activity-tabs">
-            <div class="activity-tab active">All</div>
-            <div class="activity-tab">Submissions</div>
-            <div class="activity-tab">Quizzes</div>
-            <div class="activity-tab">Comments</div>
-          </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon submission">
-                <i class="fas fa-file-alt"></i>
-              </div>
-              <div class="activity-content">
-                <div class="activity-text">
-                  <strong>Alex Chen</strong> submitted Assignment #3
-                </div>
-                <div class="activity-course">
-                  <i class="fas fa-book"></i> Introduction to Web Development
-                </div>
-              </div>
-              <div class="activity-time">2 hours ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon quiz">
-                <i class="fas fa-puzzle-piece"></i>
-              </div>
-              <div class="activity-content">
-                <div class="activity-text">
-                  <strong>Maya Johnson</strong> completed Quiz #2 with 92%
-                </div>
-                <div class="activity-course">
-                  <i class="fas fa-book"></i> Data Structures and Algorithms
-                </div>
-              </div>
-              <div class="activity-time">4 hours ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon comment">
-                <i class="fas fa-comment"></i>
-              </div>
-              <div class="activity-content">
-                <div class="activity-text">
-                  <strong>Raj Patel</strong> commented on your announcement
-                </div>
-                <div class="activity-course">
-                  <i class="fas fa-book"></i> Advanced Programming Concepts
-                </div>
-              </div>
-              <div class="activity-time">Yesterday</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon submission">
-                <i class="fas fa-file-alt"></i>
-              </div>
-              <div class="activity-content">
-                <div class="activity-text">
-                  <strong>Emma Watson</strong> submitted Assignment #2
-                </div>
-                <div class="activity-course">
-                  <i class="fas fa-book"></i> Introduction to Web Development
-                </div>
-              </div>
-              <div class="activity-time">Yesterday</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon quiz">
-                <i class="fas fa-puzzle-piece"></i>
-              </div>
-              <div class="activity-content">
-                <div class="activity-text">
-                  <strong>David Kim</strong> completed Quiz #1 with 85%
-                </div>
-                <div class="activity-course">
-                  <i class="fas fa-book"></i> Advanced Programming Concepts
-                </div>
-              </div>
-              <div class="activity-time">2 days ago</div>
+              <div class="category-name">Examination Department</div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Course Management Content -->
-      <div class="course-management-content">
+      <div class="display: block">
         <!-- Content Header -->
         <div class="content-header">
-          <h1 class="content-title">Introduction to Web Development</h1>
-          <div class="content-actions">
-            <button class="btn btn-primary">
-              <i class="fas fa-plus"></i> Add Content
-            </button>
-            <button class="btn btn-outline">
-              <i class="fas fa-cog"></i> Settings
+          
+            <button class="btn btn-primary" onclick="openAddCourseModal()">
+              <i class="fas fa-plus"></i> Add New Course
             </button>
           </div>
         </div>
+      </div>
 
-        <!-- Course Info -->
-        <div class="course-info-section">
-          <div class="course-info-header">
-            <img
-              src="/api/placeholder/100/100"
-              alt="Course Image"
-              class="course-info-img"
-            />
-            <div class="course-info-details">
-              <h2 class="course-info-title">Introduction to Web Development</h2>
-              <p class="course-info-description">
-                A comprehensive introduction to web development covering HTML,
-                CSS, JavaScript, and responsive design principles.
-              </p>
-              <div class="course-info-meta">
-                <div class="info-meta-item">
-                  <i class="fas fa-users"></i> 42 Students
-                </div>
-              </div>
+      <!-- Add Course Modal -->
+      <div class="modal-overlay" id="addCourseModal">
+        <div class="modal">
+          <div class="modal-header">
+            <h2 class="modal-title">Add New Course</h2>
+            <button class="close-modal" onclick="closeAddCourseModal()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="courseDepartment" class="form-label"
+                >Department</label
+              >
+              <select id="courseDepartment" class="form-control" required>
+                <option value="" disabled selected>Select Department</option>
+                <option value="computer_science">Computer Science</option>
+                <option value="electronics">Electronics</option>
+                <option value="computer_engineering">
+                  Computer Engineering
+                </option>
+                <option value="information_technology">
+                  Information Technology
+                </option>
+                <option value="examination_department">
+                  Examination Department
+                </option>
+              </select>
             </div>
+            <div class="form-group">
+              <label for="courseName" class="form-label">Course Name</label>
+              <input
+                type="text"
+                id="courseName"
+                class="form-control"
+                placeholder="Enter course name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="courseId" class="form-label">Course ID</label>
+              <input
+                type="text"
+                id="courseId"
+                class="form-control"
+                placeholder="Enter course ID"
+                required
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeAddCourseModal()">
+              Cancel
+            </button>
+            <button class="btn btn-primary" onclick="submitCourseForm()">
+              Create Course
+            </button>
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.querySelector(".menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      const body = document.body;
+
+      // Create overlay element
+      const overlay = document.createElement("div");
+      overlay.className = "sidebar-overlay";
+      document.body.appendChild(overlay);
+
+      // Toggle sidebar
+      menuToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+        body.classList.toggle("sidebar-active");
+        overlay.classList.toggle("active");
+      });
+
+      // Close sidebar when clicking overlay
+      overlay.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+        body.classList.remove("sidebar-active");
+        overlay.classList.remove("active");
+      });
+
+      // Modal functions
+      window.openAddCourseModal = function () {
+        document.getElementById("addCourseModal").classList.add("active");
+      };
+
+      window.closeAddCourseModal = function () {
+        document.getElementById("addCourseModal").classList.remove("active");
+        // Reset form
+        document.getElementById("courseDepartment").value = "";
+        document.getElementById("courseName").value = "";
+        document.getElementById("courseId").value = "";
+      };
+
+      window.submitCourseForm = function () {
+        const department = document.getElementById("courseDepartment").value;
+        const courseName = document.getElementById("courseName").value;
+        const courseId = document.getElementById("courseId").value;
+
+        if (!department || !courseName || !courseId) {
+          alert("Please fill in all fields");
+          return;
+        }
+
+        // Here you would typically send the data to a server
+        console.log("New Course Data:", {
+          department,
+          courseName,
+          courseId,
+        });
+
+        // Close modal and reset form
+        closeAddCourseModal();
+
+        // Optional: Add the new course to the UI
+        const categoriesGrid = document.querySelector(".categories-grid");
+        const categoryCard = document.querySelector(
+          `.category-card .category-name:contains('${department
+            .replace("_", " ")
+            .toUpperCase()}')`
+        ).parentElement;
+        const countElement = categoryCard.querySelector(".category-count");
+        const currentCount = parseInt(countElement.textContent) || 0;
+        countElement.textContent = `${currentCount + 1} Courses`;
+      };
+    });
+  </script>
 </html>
