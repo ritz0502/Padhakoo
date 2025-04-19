@@ -13,7 +13,6 @@ const courseRoutes = require('./routes/courseRoutes');
 const defaultRoutes = require('./routes/defaultRoutes');
 const authRoutes = require('./routes/authRoutes');
 
-
 // Connect to MongoDB
 const db = require('./config/db');
 db();
@@ -21,55 +20,48 @@ db();
 const app = express();
 
 // Middleware
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'padhakoo-secret-key',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({ 
-    mongoUrl: process.env.MONGO_URI,
-    ttl: 60 * 60 * 24 // 1 day
-  }),
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 // 1 day
-  }
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'padhakoo-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      ttl: 60 * 60 * 24, // 1 day
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
+  })
+);
 
 // Passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Configure passport
-require('./config/passport')(passport);
+require('./config/passport'); // ✅ Don't pass anything here
 
 // File uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '..', 'public')));
-
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
-
 app.use('/api/courses', courseRoutes);
 app.use('/api/default', defaultRoutes);
-app.use('/api/login', authRoutes);
+app.use('/api/auth', authRoutes);
 
-
-// Serve the login page
-// Serve the landing page at root
-
-// Serve the login page
 // Serve the landing page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'landingpage.html'));
 });
-
 
 // Error handling middleware
 app.use((err, req, res, next) => {
