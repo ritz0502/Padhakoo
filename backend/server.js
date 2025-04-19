@@ -63,6 +63,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'landingpage.html'));
 });
 
+
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
