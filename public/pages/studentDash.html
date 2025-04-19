@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduConnect - Student Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --card: #ffffff;
+        --accent: #4267b2;
+        --accent-light: #5f85db;
+        --accent-hover: #375599;
+        --text-primary: #1c1c1c;
+        --text-secondary: #555;
+        --border: #e0e0e0;
+        --success: #47b881;
+        --warning: #ffb020;
+        --error: #ec4c47;
+        --shadow: rgba(0, 0, 0, 0.05);
+        --transition: all 0.3s ease;
+      }
+
+      [data-theme="dark"] {
+        --bg: #12181b;
+        --card: #1e2429;
+        --accent: #5f85db;
+        --accent-light: #7597e3;
+        --accent-hover: #4c6baf;
+        --text-primary: #ededed;
+        --text-secondary: #a0a0a0;
+        --border: #2f3a42;
+        --shadow: rgba(0, 0, 0, 0.2);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-primary);
+        transition: var(--transition);
+        min-height: 100vh;
+      }
+
+      .container {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: 250px;
+        background-color: var(--card);
+        border-right: 1px solid var(--border);
+        transition: var(--transition);
+        height: 100vh;
+        position: fixed;
+        z-index: 100;
+        overflow-y: auto;
+        box-shadow: 2px 0 10px var(--shadow);
+      }
+
+      .sidebar-header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .logo {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .sidebar-menu {
+        padding: 20px 0;
+      }
+
+      .menu-heading {
+        padding: 8px 20px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+
+      .menu-item {
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .menu-item:hover,
+      .menu-item.active {
+        background-color: rgba(66, 103, 178, 0.1);
+        color: var(--accent);
+      }
+
+      .menu-item i {
+        font-size: 18px;
+        width: 20px;
+        text-align: center;
+      }
+
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        margin-left: 250px;
+        margin-right: 300px; /* Add space for calendar */
+        transition: var(--transition);
+        padding: 20px;
+        padding-top: 80px;
+      }
+
+      /* Navbar */
+      .navbar {
+        background-color: var(--card);
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 250px;
+        z-index: 99;
+        box-shadow: 0 2px 10px var(--shadow);
+        transition: var(--transition);
+      }
+
+      .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 22px;
+        cursor: pointer;
+        display: none;
+      }
+
+      .search-bar {
+        position: relative;
+        width: 300px;
+      }
+
+      .search-bar input {
+        width: 100%;
+        padding: 10px 15px;
+        padding-left: 40px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background-color: var(--bg);
+        color: var(--text-primary);
+        transition: var(--transition);
+      }
+
+      .search-bar input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .search-bar i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+      }
+
+      .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .theme-toggle {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 20px;
+        cursor: pointer;
+        transition: var(--transition);
+        padding: 8px;
+        border-radius: 50%;
+      }
+
+      .theme-toggle:hover {
+        background-color: var(--bg);
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--accent);
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .user-name {
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .user-role {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .profile-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--card);
+        border-radius: 8px;
+        box-shadow: 0 5px 15px var(--shadow);
+        width: 220px;
+        padding: 10px 0;
+        margin-top: 15px;
+        z-index: 100;
+        display: none;
+        border: 1px solid var(--border);
+      }
+
+      .profile-dropdown.active {
+        display: block;
+      }
+
+      .dropdown-user-info {
+        padding: 15px;
+        border-bottom: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .dropdown-user-info img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 2px solid var(--accent);
+      }
+
+      .dropdown-link {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .dropdown-link:hover {
+        background-color: var(--bg);
+      }
+
+      .dropdown-divider {
+        height: 1px;
+        background-color: var(--border);
+        margin: 5px 0;
+      }
+
+      /* Calendar Sidebar */
+      .calendar-sidebar {
+        width: 300px;
+        background-color: var(--card);
+        border-left: 1px solid var(--border);
+        transition: var(--transition);
+        height: 100vh;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 98;
+        overflow-y: auto;
+        box-shadow: -2px 0 10px var(--shadow);
+        padding-top: 80px;
+      }
+
+      .calendar-container {
+        padding: 20px;
+      }
+
+      .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .calendar-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .calendar-nav {
+        display: flex;
+        gap: 10px;
+      }
+
+      .calendar-nav-btn {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--bg);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: var(--transition);
+      }
+
+      .calendar-nav-btn:hover {
+        background-color: var(--border);
+        color: var(--accent);
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+      }
+
+      .calendar-weekday {
+        text-align: center;
+        font-weight: 500;
+        font-size: 12px;
+        color: var(--text-secondary);
+        padding: 5px;
+        text-transform: uppercase;
+      }
+
+      .calendar-day {
+        position: relative;
+        text-align: center;
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 14px;
+      }
+
+      .calendar-day:hover {
+        background-color: var(--bg);
+      }
+
+      .calendar-day.today {
+        background-color: var(--accent);
+        color: white;
+      }
+
+      .calendar-day.has-event::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--accent);
+      }
+
+      .calendar-day.has-assignment::after {
+        background-color: var(--warning);
+      }
+
+      .calendar-day.has-quiz::after {
+        background-color: var(--error);
+      }
+
+      .calendar-day.has-lesson::after {
+        background-color: var(--success);
+      }
+
+      .calendar-day.other-month {
+        color: var(--border);
+      }
+
+      .upcoming-events {
+        margin-top: 20px;
+      }
+
+      .upcoming-events-header {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: var(--text-secondary);
+      }
+
+      .event-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .event-item {
+        padding: 10px;
+        border-radius: 8px;
+        background-color: var(--bg);
+        border-left: 3px solid var(--accent);
+      }
+
+      .event-item.assignment {
+        border-left-color: var(--warning);
+      }
+
+      .event-item.quiz {
+        border-left-color: var(--error);
+      }
+
+      .event-item.lesson {
+        border-left-color: var(--success);
+      }
+
+      .event-title {
+        font-weight: 500;
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+
+      .event-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .event-course {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .event-time {
+        font-weight: 500;
+      }
+
+      /* Course Categories */
+      .categories-section {
+        margin-bottom: 30px;
+      }
+
+      .section-header {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .view-all {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .category-card {
+        background-color: var(--card);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 10px var(--shadow);
+        transition: var(--transition);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px var(--shadow);
+      }
+
+      .category-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(66, 103, 178, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        color: var(--accent);
+        font-size: 24px;
+      }
+
+      .category-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .category-count {
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .category-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: var(--transition);
+      }
+
+      .category-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* My Courses */
+      .courses-section {
+        margin-bottom: 30px;
+      }
+
+      .course-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .course-card {
+        background-color: var(--card);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px var(--shadow);
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px var(--shadow);
+      }
+
+      .course-image {
+        height: 150px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .course-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .course-card:hover .course-image img {
+        transform: scale(1.05);
+      }
+
+      .course-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--accent);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .course-details {
+        padding: 20px;
+      }
+
+      .course-title {
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .course-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .course-instructor {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .completion-rate {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--success);
+        font-size: 14px;
+      }
+
+      .course-progress {
+        height: 6px;
+        background-color: var(--border);
+        border-radius: 3px;
+        margin-bottom: 15px;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background-color: var(--accent);
+      }
+
+      .course-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .action-btns {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 8px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
+
+      .btn-primary {
+        background-color: var(--accent);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--bg);
+      }
+
+      /* Announcements */
+      .announcements-section {
+        margin-bottom: 30px;
+      }
+
+      .announcement-list {
+        background-color: var(--card);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px var(--shadow);
+      }
+
+      .announcement-item {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border);
+        transition: var(--transition);
+      }
+
+      .announcement-item:last-child {
+        border-bottom: none;
+      }
+
+      .announcement-item:hover {
+        background-color: var(--bg);
+      }
+
+      .announcement-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .announcement-title {
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      .announcement-date {
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .announcement-body {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .announcement-course {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: var(--accent);
+      }
+
+      /* Performance Stats */
+      .stats-section {
+        margin-bottom: 30px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .stat-card {
+        background-color: var(--card);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px var(--shadow);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
+
+      .stat-icon.blue {
+        background-color: rgba(66, 103, 178, 0.1);
+        color: var(--accent);
+      }
+
+      .stat-icon.green {
+        background-color: rgba(71, 184, 129, 0.1);
+        color: var(--success);
+      }
+
+      .stat-icon.orange {
+        background-color: rgba(255, 176, 32, 0.1);
+        color: var(--warning);
+      }
+
+      .stat-icon.red {
+        background-color: rgba(236, 76, 71, 0.1);
+        color: var(--error);
+      }
+
+      .stat-value {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      /* Upcoming Quiz Section */
+      .quiz-section {
+        margin-bottom: 30px;
+      }
+
+      .quiz-list {
+        background-color: var(--card);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px var(--shadow);
+      }
+
+      .quiz-item {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border);
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .quiz-item:last-child {
+        border-bottom: none;
+      }
+
+      .quiz-item:hover {
+        background-color: var(--bg);
+      }
+
+      .quiz-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+        background-color: rgba(236, 76, 71, 0.1);
+        color: var(--error);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      .quiz-content {
+        flex: 1;
+      }
+
+      .quiz-name {
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .quiz-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .quiz-course {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .quiz-date {
+        font-weight: 500;
+      }
+
+      .quiz-status {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .quiz-status.upcoming {
+        background-color: rgba(255, 176, 32, 0.1);
+        color: var(--warning);
+      }
+
+      .quiz-status.active {
+        background-color: rgba(71, 184, 129, 0.1);
+        color: var(--success);
+      }
+
+      .quiz-status.missed {
+        background-color: rgba(236, 76, 71, 0.1);
+        color: var(--error);
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal {
+        background-color: var(--card);
+        border-radius: 10px;
+        width: 100%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        transform: translateY(20px);
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active .modal {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .modal-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      /* Event Types Legend */
+      .event-legend {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 15px;
+        padding: 10px;
+        background-color: var(--bg);
+        border-radius: 8px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .legend-color.assignment {
+        background-color: var(--warning);
+      }
+
+      .legend-color.quiz {
+        background-color: var(--error);
+      }
+
+      .legend-color.lesson {
+        background-color: var(--success);
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 1200px) {
+        .user-info {
+          display: none;
+        }
+
+        .main-content {
+          margin-right: 0;
+        }
+
+        .calendar-sidebar {
+          display: none;
+          position: fixed;
+          top: 70px;
+          right: 0;
+          width: 300px;
+          z-index: 97;
+          border-left: 1px solid var(--border);
+          box-shadow: -2px 0 10px var(--shadow);
+          height: calc(100vh - 70px);
+          background-color: var(--card);
+        }
+
+        .calendar-sidebar.active {
+          display: block;
+        }
+
+        .calendar-toggle {
+          display: flex !important;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .sidebar {
+          width: 70px;
+          overflow: visible;
+        }
+
+        .sidebar-header {
+          justify-content: center;
+          padding: 15px 5px;
+        }
+
+        .logo span {
+          display: none;
+        }
+
+        .menu-heading {
+          font-size: 0;
+          padding: 8px;
+          text-align: center;
+        }
+
+        .menu-item {
+          padding: 12px;
+          justify-content: center;
+        }
+
+        .menu-item span {
+          display: none;
+        }
+
+        .main-content {
+          margin-left: 70px;
+        }
+
+        .navbar {
+          left: 70px;
+        }
+
+        .search-bar {
+          width: 200px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        /* Improve sidebar behavior */
+        .sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 0;
+          z-index: 1000; /* Higher z-index to stay above content */
+          transform: translateX(-100%);
+          transition: transform 0.3s ease, width 0.3s ease;
+          overflow-y: auto;
+          box-shadow: none;
+        }
+
+        .sidebar.active {
+          width: 250px;
+          transform: translateX(0);
+          box-shadow: 2px 0 15px var(--shadow);
+        }
+
+        .sidebar .logo span,
+        .sidebar .menu-item span,
+        .sidebar .menu-heading {
+          display: none; /* Hidden by default */
+        }
+
+        .sidebar.active .logo span,
+        .sidebar.active .menu-item span,
+        .sidebar.active .menu-heading {
+          display: inline-block; /* Show when sidebar is active */
+        }
+
+        /* Fix alignment and padding when sidebar is active */
+        .sidebar.active .menu-item {
+          padding: 12px 20px;
+          justify-content: flex-start;
+        }
+
+        .sidebar.active .menu-heading {
+          padding: 8px 20px;
+          font-size: 12px; /* Restore the original font size */
+          text-align: left;
+        }
+
+        .sidebar.active .sidebar-header {
+          justify-content: space-between;
+          padding: 20px;
+        }
+
+        /* Fix main content so it doesn't get overlapped */
+        .main-content {
+          margin-left: 0;
+          width: 100%;
+          transition: margin-left 0.3s ease;
+          padding: 15px;
+          padding-top: 80px;
+        }
+
+        /* Fix navbar positioning */
+        .navbar {
+          left: 0;
+          width: 100%;
+          z-index: 99;
+          padding: 10px;
+        }
+
+        .menu-toggle {
+          display: block;
+        }
+
+        .search-bar {
+          width: 150px;
+        }
+
+        .course-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .categories-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .search-bar {
+          display: none;
+        }
+
+        .navbar-right {
+          margin-left: auto;
+        }
+      }
+
+      /* Modified Sidebar Menu for Student Dashboard */
+      .sidebar-menu {
+        padding: 10px 0;
+      }
+
+      /* New sidebar menu items based on requirements */
+      .sidebar-menu .menu-item.announcements i {
+        color: var(--warning);
+      }
+
+      .sidebar-menu .menu-item.courses i {
+        color: var(--accent);
+      }
+
+      .sidebar-menu .menu-item.quiz i {
+        color: var(--error);
+      }
+
+      .sidebar-menu .menu-item.performance i {
+        color: var(--success);
+      }
+
+      .sidebar-menu .menu-item.library i {
+        color: var(--accent-light);
+      }
+
+      /* Active indicator for the currently selected menu item */
+      .menu-item.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background-color: var(--accent);
+      }
+
+      /* Calendar enhancements */
+      .calendar-day.assignment-deadline::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 40%;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--warning);
+      }
+
+      .calendar-day.lesson-deadline::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--success);
+      }
+
+      .calendar-day.quiz-deadline::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 60%;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--error);
+      }
+
+      /* Enhanced calendar legend */
+      .calendar-legend {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 15px;
+        padding: 8px;
+        background-color: var(--bg);
+        border-radius: 6px;
+        font-size: 11px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .legend-dot.assignment {
+        background-color: var(--warning);
+      }
+
+      .legend-dot.lesson {
+        background-color: var(--success);
+      }
+
+      .legend-dot.quiz {
+        background-color: var(--error);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>EduConnect</span>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <div class="menu-heading">Main Menu</div>
+          <a href="#" class="menu-item active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="menu-item courses">
+            <i class="fas fa-book"></i>
+            <span>My Courses</span>
+          </a>
+          <a href="#" class="menu-item announcements">
+            <i class="fas fa-bullhorn"></i>
+            <span>Announcements</span>
+          </a>
+          <a href="#" class="menu-item quiz">
+            <i class="fas fa-tasks"></i>
+            <span>Quizzes</span>
+          </a>
+          <a href="#" class="menu-item performance">
+            <i class="fas fa-chart-line"></i>
+            <span>Performance</span>
+          </a>
+          <a href="#" class="menu-item library">
+            <i class="fas fa-book-open"></i>
+            <span>Library</span>
+          </a>
+
+          <div class="menu-heading">Calendar</div>
+          <a href="#" class="menu-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Schedule</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fas fa-clock"></i>
+            <span>Deadlines</span>
+          </a>
+
+          <div class="menu-heading">Settings</div>
+          <a href="#" class="menu-item">
+            <i class="fas fa-user-cog"></i>
+            <span>Profile</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navbar -->
+      <div class="navbar">
+        <div class="navbar-left">
+          <button class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search courses, lessons..." />
+          </div>
+        </div>
+        <div class="navbar-right">
+          <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button
+            class="calendar-toggle"
+            style="
+              display: none;
+              background: none;
+              border: none;
+              color: var(--text-secondary);
+              font-size: 20px;
+              cursor: pointer;
+            "
+          >
+            <i class="fas fa-calendar-alt"></i>
+          </button>
+          <div class="user-profile">
+            <img
+              src="https://i.pravatar.cc/150?img=32"
+              alt="User"
+              class="user-avatar"
+            />
+            <div class="user-info">
+              <div class="user-name">Alex Johnson</div>
+              <div class="user-role">Student</div>
+            </div>
+            <div class="profile-dropdown">
+              <div class="dropdown-user-info">
+                <img src="https://i.pravatar.cc/150?img=32" alt="User" />
+                <div class="user-name">Alex Johnson</div>
+                <div class="user-role">Student ID: ST12345</div>
+              </div>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-user"></i> My Profile
+              </a>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-cog"></i> Account Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Performance Stats -->
+        <div class="stats-section">
+          <div class="section-header">
+            <div class="section-title">Performance Overview</div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <div class="stat-value">7</div>
+              <div class="stat-label">Active Courses</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon green">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="stat-value">85%</div>
+              <div class="stat-label">Average Grade</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon orange">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div class="stat-value">12</div>
+              <div class="stat-label">Pending Tasks</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon red">
+                <i class="fas fa-certificate"></i>
+              </div>
+              <div class="stat-value">3</div>
+              <div class="stat-label">Certificates</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Courses -->
+        <div class="courses-section">
+          <div class="section-header">
+            <div class="section-title">My Courses</div>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <div class="course-cards">
+            <div class="course-card">
+              <div class="course-image">
+                <img
+                  src="https://source.unsplash.com/random/400x200/?code"
+                  alt="Course"
+                />
+                <span class="course-badge">In Progress</span>
+              </div>
+              <div class="course-details">
+                <h3 class="course-title">
+                  Introduction to Programming with Python
+                </h3>
+                <div class="course-meta">
+                  <div class="course-instructor">
+                    <i class="fas fa-user"></i> Prof. David Miller
+                  </div>
+                  <div class="completion-rate">
+                    <i class="fas fa-check-circle"></i> 65%
+                  </div>
+                </div>
+                <div class="course-progress">
+                  <div class="progress-bar" style="width: 65%"></div>
+                </div>
+                <div class="course-actions">
+                  <div class="action-btns">
+                    <button class="btn btn-primary">
+                      <i class="fas fa-play"></i> Continue
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="course-image">
+                <img
+                  src="https://source.unsplash.com/random/400x200/?data"
+                  alt="Course"
+                />
+                <span class="course-badge">New</span>
+              </div>
+              <div class="course-details">
+                <h3 class="course-title">Data Structures and Algorithms</h3>
+                <div class="course-meta">
+                  <div class="course-instructor">
+                    <i class="fas fa-user"></i> Dr. Sarah Chen
+                  </div>
+                  <div class="completion-rate">
+                    <i class="fas fa-check-circle"></i> 20%
+                  </div>
+                </div>
+                <div class="course-progress">
+                  <div class="progress-bar" style="width: 20%"></div>
+                </div>
+                <div class="course-actions">
+                  <div class="action-btns">
+                    <button class="btn btn-primary">
+                      <i class="fas fa-play"></i> Continue
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="course-image">
+                <img
+                  src="https://source.unsplash.com/random/400x200/?web"
+                  alt="Course"
+                />
+                <span class="course-badge">Popular</span>
+              </div>
+              <div class="course-details">
+                <h3 class="course-title">Full Stack Web Development</h3>
+                <div class="course-meta">
+                  <div class="course-instructor">
+                    <i class="fas fa-user"></i> Prof. James Wilson
+                  </div>
+                  <div class="completion-rate">
+                    <i class="fas fa-check-circle"></i> 40%
+                  </div>
+                </div>
+                <div class="course-progress">
+                  <div class="progress-bar" style="width: 40%"></div>
+                </div>
+                <div class="course-actions">
+                  <div class="action-btns">
+                    <button class="btn btn-primary">
+                      <i class="fas fa-play"></i> Continue
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Quiz Section -->
+        <div class="quiz-section">
+          <div class="section-header">
+            <div class="section-title">Upcoming Quizzes</div>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <div class="quiz-list">
+            <div class="quiz-item">
+              <div class="quiz-icon">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div class="quiz-content">
+                <div class="quiz-name">Python Programming Fundamentals</div>
+                <div class="quiz-details">
+                  <div class="quiz-course">
+                    <i class="fas fa-book"></i> Introduction to Programming
+                  </div>
+                  <div class="quiz-date">Tomorrow, 2:30 PM</div>
+                </div>
+              </div>
+              <span class="quiz-status upcoming">Upcoming</span>
+            </div>
+            <div class="quiz-item">
+              <div class="quiz-icon">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div class="quiz-content">
+                <div class="quiz-name">Data Structures Midterm</div>
+                <div class="quiz-details">
+                  <div class="quiz-course">
+                    <i class="fas fa-book"></i> Data Structures and Algorithms
+                  </div>
+                  <div class="quiz-date">Apr 25, 10:00 AM</div>
+                </div>
+              </div>
+              <span class="quiz-status upcoming">Upcoming</span>
+            </div>
+            <div class="quiz-item">
+              <div class="quiz-icon">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div class="quiz-content">
+                <div class="quiz-name">HTML & CSS Basics</div>
+                <div class="quiz-details">
+                  <div class="quiz-course">
+                    <i class="fas fa-book"></i> Full Stack Web Development
+                  </div>
+                  <div class="quiz-date">Available Now</div>
+                </div>
+              </div>
+              <span class="quiz-status active">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div class="announcements-section">
+          <div class="section-header">
+            <div class="section-title">Recent Announcements</div>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <div class="announcement-list">
+            <div class="announcement-item">
+              <div class="announcement-header">
+                <div class="announcement-title">
+                  Library Hours Extended for Finals
+                </div>
+                <div class="announcement-date">Today, 9:15 AM</div>
+              </div>
+              <div class="announcement-body">
+                The campus library will extend its hours to 11 PM during the
+                finals week to accommodate student study needs.
+              </div>
+              <div class="announcement-course">
+                <i class="fas fa-bullhorn"></i> Campus Administration
+              </div>
+            </div>
+            <div class="announcement-item">
+              <div class="announcement-header">
+                <div class="announcement-title">
+                  Updated Assignment Guidelines
+                </div>
+                <div class="announcement-date">Yesterday, 2:30 PM</div>
+              </div>
+              <div class="announcement-body">
+                Please review the updated assignment submission guidelines for
+                the final project. Changes include formatting requirements and
+                citation standards.
+              </div>
+              <div class="announcement-course">
+                <i class="fas fa-book"></i> Introduction to Programming
+              </div>
+            </div>
+            <div class="announcement-item">
+              <div class="announcement-header">
+                <div class="announcement-title">
+                  Guest Lecture: Industry Experts
+                </div>
+                <div class="announcement-date">Apr 17, 4:45 PM</div>
+              </div>
+              <div class="announcement-body">
+                Join us for a special guest lecture by leading industry experts
+                on emerging tech trends this Friday at 3 PM in Lecture Hall B.
+              </div>
+              <div class="announcement-course">
+                <i class="fas fa-book"></i> Full Stack Web Development
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar Sidebar -->
+      <div class="calendar-sidebar">
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <div class="calendar-title">April 2025</div>
+            <div class="calendar-nav">
+              <button class="calendar-nav-btn">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="calendar-nav-btn">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="calendar-grid">
+            <div class="calendar-weekday">Sun</div>
+            <div class="calendar-weekday">Mon</div>
+            <div class="calendar-weekday">Tue</div>
+            <div class="calendar-weekday">Wed</div>
+            <div class="calendar-weekday">Thu</div>
+            <div class="calendar-weekday">Fri</div>
+            <div class="calendar-weekday">Sat</div>
+
+            <!-- Calendar days - first week (March) -->
+            <div class="calendar-day other-month">30</div>
+            <div class="calendar-day other-month">31</div>
+            <div class="calendar-day">1</div>
+            <div class="calendar-day">2</div>
+            <div class="calendar-day">3</div>
+            <div class="calendar-day assignment-deadline">4</div>
+            <div class="calendar-day">5</div>
+
+            <!-- Second week -->
+            <div class="calendar-day">6</div>
+            <div class="calendar-day">7</div>
+            <div class="calendar-day lesson-deadline">8</div>
+            <div class="calendar-day">9</div>
+            <div class="calendar-day">10</div>
+            <div class="calendar-day quiz-deadline">11</div>
+            <div class="calendar-day">12</div>
+
+            <!-- Third week -->
+            <div class="calendar-day">13</div>
+            <div class="calendar-day assignment-deadline lesson-deadline">
+              14
+            </div>
+            <div class="calendar-day">15</div>
+            <div class="calendar-day">16</div>
+            <div class="calendar-day">17</div>
+            <div class="calendar-day">18</div>
+            <div class="calendar-day today">19</div>
+
+            <!-- Fourth week -->
+            <div class="calendar-day">20</div>
+            <div class="calendar-day">21</div>
+            <div class="calendar-day assignment-deadline">22</div>
+            <div class="calendar-day">23</div>
+            <div class="calendar-day quiz-deadline">24</div>
+            <div class="calendar-day">25</div>
+            <div class="calendar-day">26</div>
+
+            <!-- Fifth week -->
+            <div class="calendar-day">27</div>
+            <div class="calendar-day lesson-deadline">28</div>
+            <div class="calendar-day">29</div>
+            <div class="calendar-day">30</div>
+            <div class="calendar-day other-month">1</div>
+            <div class="calendar-day other-month">2</div>
+            <div class="calendar-day other-month">3</div>
+          </div>
+
+          <!-- Calendar legend -->
+          <div class="calendar-legend">
+            <div class="legend-item">
+              <div class="legend-dot assignment"></div>
+              <span>Assignment</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot lesson"></div>
+              <span>Lesson</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot quiz"></div>
+              <span>Quiz</span>
+            </div>
+          </div>
+
+          <div class="upcoming-events">
+            <div class="upcoming-events-header">Upcoming Events</div>
+            <div class="event-list">
+              <div class="event-item assignment">
+                <div class="event-title">Python Programming Assignment</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Intro to Programming
+                  </div>
+                  <div class="event-time">Due Apr 22</div>
+                </div>
+              </div>
+              <div class="event-item quiz">
+                <div class="event-title">Data Structures Quiz</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Data Structures
+                  </div>
+                  <div class="event-time">Apr 24, 10:00 AM</div>
+                </div>
+              </div>
+              <div class="event-item lesson">
+                <div class="event-title">Web Dev Live Session</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Full Stack Web Dev
+                  </div>
+                  <div class="event-time">Apr 28, 2:00 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle theme between light and dark
+      const themeToggle = document.querySelector(".theme-toggle");
+      themeToggle.addEventListener("click", () => {
+        const htmlElement = document.documentElement;
+        const currentTheme = htmlElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        htmlElement.setAttribute("data-theme", newTheme);
+
+        // Update theme icon
+        const themeIcon = themeToggle.querySelector("i");
+        themeIcon.className =
+          newTheme === "light" ? "fas fa-moon" : "fas fa-sun";
+      });
+
+      // Toggle sidebar on mobile
+      const menuToggle = document.querySelector(".menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+
+      // Toggle calendar sidebar on tablet/mobile
+      const calendarToggle = document.querySelector(".calendar-toggle");
+      const calendarSidebar = document.querySelector(".calendar-sidebar");
+      calendarToggle.addEventListener("click", () => {
+        calendarSidebar.classList.toggle("active");
+      });
+
+      // User profile dropdown
+      const userProfile = document.querySelector(".user-profile");
+      const profileDropdown = document.querySelector(".profile-dropdown");
+      userProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("active");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", () => {
+        profileDropdown.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
