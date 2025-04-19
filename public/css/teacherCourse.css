@@ -48,6 +48,7 @@ body {
   z-index: 100;
   overflow-y: auto;
   box-shadow: 2px 0 10px var(--shadow);
+  margin-top: -70px;
 }
 
 .sidebar-header {
@@ -323,6 +324,7 @@ main {
 .page-header h2 {
   font-size: 1.75rem;
   font-weight: 600;
+  margin-left: 150px;
 }
 
 .filter-actions {
