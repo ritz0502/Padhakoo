@@ -79,16 +79,18 @@ router.get('/logout', (req, res) => {
 });
 
 // Google OAuth Routes
-router.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
+// Google OAuth Routes
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login.html' }),
   (req, res) => {
+    console.log('User authenticated:', req.user);
     res.redirect('/');
   }
 );
+
+
 
 // GitHub OAuth Routes
 router.get('/github',
@@ -115,7 +117,9 @@ router.get('/facebook/callback',
 );
 
 // Route for checking authentication status
+// Route for checking authentication status
 router.get('/status', (req, res) => {
+  console.log("User authenticated:", req.isAuthenticated()); // Add this log for debugging
   if (req.isAuthenticated()) {
     return res.status(200).json({
       isAuthenticated: true,
@@ -130,6 +134,7 @@ router.get('/status', (req, res) => {
     return res.status(200).json({ isAuthenticated: false });
   }
 });
+
 
 // Registration route
 router.post('/register', async (req, res) => {
