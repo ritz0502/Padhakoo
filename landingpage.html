@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Portal</title>
+  <link rel="stylesheet" href="./landingpage.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Educational Portal</h1>
+      <p>Welcome to our comprehensive learning management system</p>
+    </header>
+    
+    <div class="login-options">
+      <div class="login-card">
+        <h2>Admin</h2>
+        <p>System administration and management</p>
+        <a href="admin-login.html" class="login-btn">Login as Admin</a>
+      </div>
+      
+      <div class="login-card">
+        <h2>Teacher</h2>
+        <p>Create courses and manage student learning</p>
+        <a href="teacher-login.html" class="login-btn">Login as Teacher</a>
+      </div>
+      
+      <div class="login-card">
+        <h2>Student</h2>
+        <p>Access courses and learning materials</p>
+        <a href="student-login.html" class="login-btn">Login as Student</a>
+      </div>
+    </div>
+    <div class="counter-box">
+        <h1 id="userCount">0</h1>
+        <p>Users</p>
+      </div>
+      
+    <div class="stats-container">
+      <div class="stat-box">
+        <h3>Total Users</h3>
+        <p id="total-users">0</p>
+      </div>
+      <div class="stat-box">
+        <h3>Students</h3>
+        <p id="student-users">0</p>
+      </div>
+      <div class="stat-box">
+        <h3>Teachers</h3>
+        <p id="teacher-users">0</p>
+      </div>
+      <div class="stat-box">
+        <h3>Admins</h3>
+        <p id="admin-users">0</p>
+      </div>
+    </div>
+    
+    <footer>
+      <p>&copy; 2025 Educational Portal. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="./landingpage.js"></script>
+</body>
+</html>
