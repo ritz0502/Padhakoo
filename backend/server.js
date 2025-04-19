@@ -51,7 +51,7 @@ require('./config/passport')(passport);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 
 // Routes
@@ -69,6 +69,7 @@ app.use('/api/login', authRoutes);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'landingpage.html'));
 });
+
 
 
 // Error handling middleware
