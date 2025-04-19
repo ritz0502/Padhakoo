@@ -1951,11 +1951,7 @@
           <i class="fas fa-home"></i>
           <span>Dashboard</span>
         </a>
-<<<<<<< HEAD
-        <a href="../pages/teacherCourse.html" class="menu-item">
-=======
         <a href="teacherCourse.html" class="menu-item">
->>>>>>> cf9aee4cb4995612925feed110c5bc3851a946ec
           <i class="fas fa-book"></i>
           <span>My Courses</span>
         </a>
@@ -2269,11 +2265,11 @@
 
         const categoriesGrid = document.querySelector(".categories-grid");
         const categoryCard = document.querySelector(
-      `.category-card .category-name:contains('${department.replace("_", " ").toUpperCase()}')`
+      .category-card .category-name:contains('${department.replace("_", " ").toUpperCase()}')
         ).parentElement;
         const countElement = categoryCard.querySelector(".category-count");
         const currentCount = parseInt(countElement.textContent) || 0;
-        countElement.textContent = `${currentCount + 1} Courses`;
+        countElement.textContent = ${currentCount + 1} Courses;
 
     closeAddCourseModal();
       };
