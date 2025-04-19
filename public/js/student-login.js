@@ -76,9 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusMessage.style.display = 'block';
                 
                 // Redirect to dashboard after successful login
-                setTimeout(() => {
-                    window.location.href = '/dashboard';
-                }, 1500);
+                // Redirect to teacherDash.html after successful login
+setTimeout(() => {
+    window.location.href = '/pages/teacherDash.html';
+}, 1500);
+
             } else {
                 // Error message
                 statusMessage.textContent = data.message || 'Login failed. Please check your credentials.';

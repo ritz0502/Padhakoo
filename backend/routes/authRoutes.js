@@ -2,7 +2,23 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/User');
+// ✅ Hardcoded user for testing
+const testUser = {
+  email: 'test@padhakoo.com',
+  password: 'test123'
+};
 
+router.post('/', (req, res) => {
+  const { email, password } = req.body;
+
+  console.log("Login attempt:", email, password);
+
+  if (email === testUser.email && password === testUser.password) {
+    return res.status(200).json({ message: 'Login successful' });
+  } else {
+    return res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
 // Local login
 router.post('/login', async (req, res, next) => {
   try {
@@ -63,16 +79,18 @@ router.get('/logout', (req, res) => {
 });
 
 // Google OAuth Routes
-router.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
+// Google OAuth Routes
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login.html' }),
   (req, res) => {
+    console.log('User authenticated:', req.user);
     res.redirect('/');
   }
 );
+
+
 
 // GitHub OAuth Routes
 router.get('/github',
@@ -99,7 +117,9 @@ router.get('/facebook/callback',
 );
 
 // Route for checking authentication status
+// Route for checking authentication status
 router.get('/status', (req, res) => {
+  console.log("User authenticated:", req.isAuthenticated()); // Add this log for debugging
   if (req.isAuthenticated()) {
     return res.status(200).json({
       isAuthenticated: true,
