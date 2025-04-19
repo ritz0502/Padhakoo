@@ -11,6 +11,7 @@
   --shadow: rgba(0, 0, 0, 0.1);
   --shadow-hover: rgba(0, 0, 0, 0.15);
   --overlay: rgba(244, 247, 251, 0.75);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 [data-theme="dark"] {
@@ -40,6 +41,7 @@ body {
   position: relative;
   min-height: 100vh;
   transition: all 0.3s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Background image with transparency */
@@ -80,6 +82,12 @@ body::before {
 .theme-toggle:hover {
   transform: scale(1.1);
 }
+.theme-toggle svg {
+  stroke: var(--text-primary);
+  width: 20px;
+  height: 20px;
+}
+
 
 .container {
   max-width: 1200px;

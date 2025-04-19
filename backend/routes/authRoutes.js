@@ -8,7 +8,7 @@ const testUser = {
   password: 'test123'
 };
 
-router.post('/', (req, res) => {
+router.post('/login', (req, res) => {
   const { email, password } = req.body;
 
   console.log("Login attempt:", email, password);
@@ -17,56 +17,6 @@ router.post('/', (req, res) => {
     return res.status(200).json({ message: 'Login successful' });
   } else {
     return res.status(401).json({ message: 'Invalid credentials' });
-  }
-});
-// Local login
-router.post('/login', async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    
-    // Find user by email
-    const user = await User.findOne({ email });
-    
-    // If user doesn't exist
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-    
-    // If user exists but no password (social login only)
-    if (!user.password) {
-      return res.status(401).json({ 
-        message: 'This account uses social login. Please sign in with the appropriate social provider.' 
-      });
-    }
-    
-    // Check password
-    const isMatch = await user.comparePassword(password);
-    
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-    
-    // Update last login
-    user.lastLogin = Date.now();
-    await user.save();
-    
-    // Login with passport
-    req.login(user, (err) => {
-      if (err) return next(err);
-      
-      return res.status(200).json({ 
-        message: 'Login successful',
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role
-        }
-      });
-    });
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error during login' });
   }
 });
 

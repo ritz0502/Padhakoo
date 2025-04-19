@@ -24,15 +24,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session configuration
+app.use(cors({
+  origin: 'http://localhost:5500',
+  credentials: true
+}));
+
+
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'padhakoo-secret-key',
+    secret: 'mySuperSecretKey123', // hardcoded session secret
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      ttl: 60 * 60 * 24, // 1 day
+      mongoUrl: 'mongodb://127.0.0.1:27017/padhakoo', // hardcoded mongo URL
     }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
