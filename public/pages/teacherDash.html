@@ -1656,67 +1656,104 @@
       }
 
       @media (max-width: 768px) {
+        /* Improve sidebar behavior */
         .sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
           width: 0;
+          z-index: 1000; /* Higher z-index to stay above content */
           transform: translateX(-100%);
-          z-index: 200;
+          transition: transform 0.3s ease, width 0.3s ease;
+          overflow-y: auto;
+          box-shadow: none;
         }
 
         .sidebar.active {
           width: 250px;
           transform: translateX(0);
+          box-shadow: 2px 0 15px var(--shadow);
+        }
+
+        .sidebar .logo span,
+        .sidebar .menu-item span,
+        .sidebar .menu-heading {
+          display: none; /* Hidden by default */
         }
 
         .sidebar.active .logo span,
-        .sidebar.active .menu-heading,
-        .sidebar.active .menu-item span {
-          display: inline-block;
+        .sidebar.active .menu-item span,
+        .sidebar.active .menu-heading {
+          display: inline-block; /* Show when sidebar is active */
         }
 
+        /* Fix alignment and padding when sidebar is active */
         .sidebar.active .menu-item {
           padding: 12px 20px;
           justify-content: flex-start;
         }
 
+        .sidebar.active .menu-heading {
+          padding: 8px 20px;
+          font-size: 12px; /* Restore the original font size */
+          text-align: left;
+        }
+
+        .sidebar.active .sidebar-header {
+          justify-content: space-between;
+          padding: 20px;
+        }
+
+        /* Fix main content so it doesn't get overlapped */
         .main-content {
           margin-left: 0;
-          padding-top: 70px;
+          width: 100%;
+          transition: margin-left 0.3s ease;
+          padding: 15px;
+          padding-top: 80px;
         }
 
+        /* Fix navbar positioning */
         .navbar {
           left: 0;
+          width: 100%;
+          z-index: 99;
         }
 
+        /* Make menu toggle more prominent */
         .menu-toggle {
           display: block;
+          font-size: 24px;
+          padding: 5px;
+          background: transparent;
+          border-radius: 5px;
         }
 
-        .search-bar {
+        .menu-toggle:hover {
+          background-color: var(--bg);
+        }
+
+        /* When sidebar is active, add padding to prevent content overlap */
+        body.sidebar-active .main-content {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+
+        /* Add overlay when sidebar is open */
+        .sidebar-overlay {
           display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 999;
         }
 
-        .chat-container {
-          flex-direction: column;
-          height: 700px;
-        }
-
-        .chat-sidebar {
-          width: 100%;
-          height: 300px;
-          border-right: none;
-          border-bottom: 1px solid var(--border);
-        }
-
-        .analytics-cards {
-          grid-template-columns: 1fr;
-        }
-
-        .course-cards {
-          grid-template-columns: 1fr;
-        }
-
-        .categories-grid {
-          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        .sidebar-overlay.active {
+          display: block;
         }
       }
 
@@ -1804,7 +1841,13 @@
           align-items: flex-start;
           gap: 10px;
         }
+        .sidebar {
+          width: 0;
+        }
 
+        .sidebar.active {
+          width: 85%; /* Wider sidebar for small screens */
+        }
         /* Make cards take full width */
         .categories-grid {
           grid-template-columns: 1fr;
@@ -2028,14 +2071,14 @@
             </div>
             <div class="category-card">
               <div class="category-icon">
-                <i class="fas fa-flask"></i>
+                <i class="fas fa-lightbulb"></i>
               </div>
               <div class="category-name">Electronics</div>
               <div class="category-count">8 Courses</div>
             </div>
             <div class="category-card">
               <div class="category-icon">
-                <i class="fas fa-calculator"></i>
+                <i class="fas fa-laptop"></i>
               </div>
               <div class="category-name">Computer Engineering</div>
               <div class="category-count">7 Courses</div>
@@ -2049,7 +2092,7 @@
             </div>
             <div class="category-card">
               <div class="category-icon">
-                <i class="fas fa-palette"></i>
+                <i class="fas fa-pen-to-square"></i>
               </div>
               <div class="category-name">Examination Department</div>
             </div>
@@ -2097,4 +2140,31 @@
       </div>
     </div>
   </body>
+  <script>
+    // Add this to your existing JavaScript
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.querySelector(".menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      const body = document.body;
+
+      // Create overlay element
+      const overlay = document.createElement("div");
+      overlay.className = "sidebar-overlay";
+      document.body.appendChild(overlay);
+
+      // Toggle sidebar
+      menuToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+        body.classList.toggle("sidebar-active");
+        overlay.classList.toggle("active");
+      });
+
+      // Close sidebar when clicking overlay
+      overlay.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+        body.classList.remove("sidebar-active");
+        overlay.classList.remove("active");
+      });
+    });
+  </script>
 </html>
