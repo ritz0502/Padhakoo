@@ -27,7 +27,7 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
   
     if (!isSignup) {
       // Login mode – redirect to dashboard
-      window.location.href = "/pages/teacherDash.html";
+      window.location.href = "../pages/teacherDash.html";
     } else {
       // Signup mode – maybe show a "signup successful" message instead
       alert("Signup successful! You can now log in.");
