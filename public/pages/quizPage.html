@@ -212,109 +212,151 @@
   </div>
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script>
-    const socket = io("http://localhost:4000");
-    let playerName = "";
-    let currentRoom = "";
-    let countdownInterval;
+    // Replace the script section in your HTML with this:
 
-    function showPopup(message) {
-      const popup = document.getElementById("popup-container");
-      popup.innerText = message;
-      popup.classList.remove("hidden");
-      popup.style.display = "block";
-      setTimeout(() => {
-        popup.classList.add("hidden");
-        popup.style.display = "none";
-      }, 2500);
-    }
+const socket = io("http://localhost:3000");
+let playerName = "";
+let currentRoom = "";
+let countdownInterval;
 
-    function joinRoom() {
-      playerName = document.getElementById('name').value;
-      currentRoom = document.getElementById('room').value;
-      if (playerName && currentRoom) {
-        document.querySelector('.right-panel').classList.remove('hidden');
-        document.getElementById('join-div').classList.add('hidden');
-        document.getElementById('quiz-div').classList.remove('hidden');
-        document.getElementById('room-id').innerText = `Room: ${currentRoom}`;
-        showPopup(`${playerName} joined the game!`);
-        socket.emit("joinRoom", currentRoom, playerName);
-      }
-    }
+function showPopup(message) {
+  const popup = document.getElementById("popup-container");
+  popup.innerText = message;
+  popup.classList.remove("hidden");
+  popup.style.display = "block";
+  setTimeout(() => {
+    popup.classList.add("hidden");
+    popup.style.display = "none";
+  }, 2500);
+}
 
-    socket.on("newQuestion", (data) => {
-      const { question, answers, timer } = data;
-      document.getElementById("question").innerText = question;
-      const optionsList = document.getElementById("options-list");
-      optionsList.innerHTML = '';
-      answers.forEach((text, index) => {
-        const li = document.createElement('li');
-        li.innerText = text;
-        li.onclick = () => {
-          socket.emit("submitAnswer", currentRoom, index);
-          disableOptions();
-        };
-        optionsList.appendChild(li);
+function joinRoom() {
+  playerName = document.getElementById('name').value;
+  currentRoom = document.getElementById('room').value;
+  
+  if (!playerName || !currentRoom) {
+    showPopup("Please enter both name and room ID.");
+    return;
+  }
+  
+  document.querySelector('.right-panel').classList.remove('hidden');
+  document.getElementById('join-div').classList.add('hidden');
+  document.getElementById('quiz-div').classList.remove('hidden');
+  document.getElementById('room-id').innerText = `Room: ${currentRoom}`;
+  showPopup(`${playerName} joined the game!`);
+  socket.emit("joinRoom", currentRoom, playerName);
+}
+
+socket.on("newQuestion", (data) => {
+  const { question, answers, timer } = data;
+  document.getElementById("question").innerText = question;
+  const optionsList = document.getElementById("options-list");
+  optionsList.innerHTML = '';
+  
+  answers.forEach((text, index) => {
+    const li = document.createElement('li');
+    li.innerText = text;
+    li.onclick = () => {
+      // Mark this option as selected
+      document.querySelectorAll('#options-list li').forEach(item => {
+        item.classList.remove('selected');
       });
-      startCountdown(timer || 10);
-    });
+      li.classList.add('selected');
+      
+      // Submit the answer
+      socket.emit("submitAnswer", currentRoom, index);
+      disableOptions();
+    };
+    optionsList.appendChild(li);
+  });
+  
+  startCountdown(timer || 10);
+});
 
-    socket.on("answerResult", ({ playerName, isCorrect, correctAnswer, scores }) => {
-      showPopup(`${playerName} answered ${isCorrect ? 'correctly' : 'incorrectly'}`);
-      updateLeaderboard(scores);
-      stopCountdown();
-    });
+socket.on("answerResult", (data) => {
+  const { playerName, isCorrect, correctAnswer, scores } = data;
+  showPopup(`${playerName} answered ${isCorrect ? 'correctly! ✓' : 'incorrectly! ✗'}`);
+  updateLeaderboard(scores);
+  stopCountdown();
+});
 
-    socket.on("gameOver", ({ winner }) => {
-      showPopup(`Game Over! Winner is ${winner}`);
-      const summary = document.getElementById("game-summary");
-      const board = document.getElementById("leaderboard");
-      summary.innerHTML = `<div class='final-winner'>🏆 Winner: ${winner}</div><h2>Final Leaderboard</h2>` + board.innerHTML;
-      summary.classList.remove("hidden");
-      document.getElementById("quiz-div").classList.add("hidden");
-      document.querySelector(".left-panel").classList.add("hidden");
-      const rightPanel = document.querySelector(".right-panel");
-      rightPanel.classList.remove("hidden");
-      rightPanel.classList.add("centered-panel");
-    });
+socket.on("updateScores", (scores) => {
+  updateLeaderboard(scores);
+});
 
-    function startCountdown(seconds) {
-      const timerElement = document.getElementById("timer");
-      let remaining = seconds;
-      timerElement.innerText = `Time Left: ${remaining}s`;
-      countdownInterval = setInterval(() => {
-        remaining--;
-        timerElement.innerText = `Time Left: ${remaining}s`;
-        if (remaining <= 0) {
-          clearInterval(countdownInterval);
-        }
-      }, 1000);
+socket.on("playerLeft", (data) => {
+  showPopup(data.message);
+  updateLeaderboard(data.scores);
+});
+
+socket.on("gameOver", ({ winner, scores }) => {
+  showPopup(`Game Over! Winner is ${winner}`);
+  const summary = document.getElementById("game-summary");
+  const board = document.getElementById("leaderboard");
+  summary.innerHTML = `<div class='final-winner'>🏆 Winner: ${winner}</div><h2>Final Leaderboard</h2>` + board.innerHTML;
+  summary.classList.remove("hidden");
+  document.getElementById("quiz-div").classList.add("hidden");
+  
+  // Make the right panel centered and visible
+  const rightPanel = document.querySelector(".right-panel");
+  rightPanel.classList.remove("hidden");
+  rightPanel.classList.add("centered-panel");
+});
+
+function startCountdown(seconds) {
+  const timerElement = document.getElementById("timer");
+  let remaining = seconds;
+  timerElement.innerText = `Time Left: ${remaining}s`;
+  
+  // Clear any existing timer
+  clearInterval(countdownInterval);
+  
+  countdownInterval = setInterval(() => {
+    remaining--;
+    timerElement.innerText = `Time Left: ${remaining}s`;
+    
+    // Visual feedback as time runs low
+    if (remaining <= 3) {
+      timerElement.style.color = "#EC4C47"; // Red when time is low
+    } else {
+      timerElement.style.color = "var(--success)"; // Default color
     }
-
-    function stopCountdown() {
+    
+    if (remaining <= 0) {
       clearInterval(countdownInterval);
     }
+  }, 1000);
+}
 
-    function disableOptions() {
-      document.querySelectorAll('#options-list li').forEach(li => {
-        li.style.pointerEvents = "none";
-        li.style.opacity = "0.5";
-      });
-    }
+function stopCountdown() {
+  clearInterval(countdownInterval);
+}
 
-    function updateLeaderboard(scores) {
-      const board = document.getElementById("leaderboard");
-      if (!scores || scores.length === 0) {
-        board.classList.add("hidden");
-        return;
-      }
-      board.classList.remove("hidden");
-      board.innerHTML = "<h3>Leaderboard</h3>";
-      scores.sort((a, b) => b.score - a.score).forEach(player => {
-        const p = document.createElement("div");
-        p.innerText = `${player.name}: ${player.score}`;
-        board.appendChild(p);
-      });
+function disableOptions() {
+  document.querySelectorAll('#options-list li').forEach(li => {
+    if (!li.classList.contains('selected')) {
+      li.style.pointerEvents = "none";
+      li.style.opacity = "0.5";
     }
+  });
+}
+
+function updateLeaderboard(scores) {
+  const board = document.getElementById("leaderboard");
+  if (!scores || scores.length === 0) {
+    board.classList.add("hidden");
+    return;
+  }
+  
+  board.classList.remove("hidden");
+  board.innerHTML = "<h3>Leaderboard</h3>";
+  
+  scores.sort((a, b) => b.score - a.score).forEach(player => {
+    const p = document.createElement("div");
+    p.innerText = `${player.name}: ${player.score}`;
+    board.appendChild(p);
+  });
+}
   </script>
 </body>
 </html>

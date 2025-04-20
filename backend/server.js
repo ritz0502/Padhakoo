@@ -10,6 +10,7 @@ const passport = require('passport');
 const http = require('http');
 const socketIo = require('socket.io');
 
+
 const courseRoutes = require('./routes/courseRoutes');
 const defaultRoutes = require('./routes/defaultRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -19,7 +20,9 @@ const db = require('./config/db');
 db();
 
 const app = express();
-const server = http.createServer(app); // 👈 Attach Express to a custom server
+const server = http.createServer(app);
+ // Keeps track of users in each room
+ // 👈 Attach Express to a custom server
 const io = socketIo(server, {
   cors: {
     origin: "*",
@@ -75,98 +78,59 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// ------------------------ QUIZ SOCKET.IO LOGIC ------------------------
+// Replace your QUIZ SOCKET.IO LOGIC section with this improved version
 
+// ------------------------ QUIZ SOCKET.IO LOGIC ------------------------
 const questions = [
   {
     question: "Which data structure uses LIFO (Last In First Out)?",
-    answers: [
-      { text: "Queue", correct: false },
-      { text: "Stack", correct: true },
-      { text: "Linked List", correct: false },
-      { text: "Tree", correct: false }
-    ]
+    answers: ["Queue", "Stack", "Linked List", "Tree"],
+    correctAnswer: 1
   },
   {
     question: "Which of the following is a type of Normal Form in DBMS?",
-    answers: [
-      { text: "First Normal Form (1NF)", correct: true },
-      { text: "Entity Form", correct: false },
-      { text: "Key Form", correct: false },
-      { text: "Primary Form", correct: false }
-    ]
+    answers: ["First Normal Form (1NF)", "Entity Form", "Key Form", "Primary Form"],
+    correctAnswer: 0
   },
   {
     question: "What does a semaphore help prevent in Operating Systems?",
-    answers: [
-      { text: "Data Redundancy", correct: false },
-      { text: "Deadlock", correct: true },
-      { text: "Memory Leak", correct: false },
-      { text: "Page Fault", correct: false }
-    ]
+    answers: ["Data Redundancy", "Deadlock", "Memory Leak", "Page Fault"],
+    correctAnswer: 1
   },
   {
     question: "Which protocol is used to send emails?",
-    answers: [
-      { text: "FTP", correct: false },
-      { text: "SMTP", correct: true },
-      { text: "HTTP", correct: false },
-      { text: "SNMP", correct: false }
-    ]
+    answers: ["FTP", "SMTP", "HTTP", "SNMP"],
+    correctAnswer: 1
   },
   {
     question: "What is the time complexity of binary search in a sorted array?",
-    answers: [
-      { text: "O(n)", correct: false },
-      { text: "O(n log n)", correct: false },
-      { text: "O(log n)", correct: true },
-      { text: "O(1)", correct: false }
-    ]
+    answers: ["O(n)", "O(n log n)", "O(log n)", "O(1)"],
+    correctAnswer: 2
   },
   {
     question: "Which of the following is not a type of DBMS?",
-    answers: [
-      { text: "Relational", correct: false },
-      { text: "Hierarchical", correct: false },
-      { text: "Network", correct: false },
-      { text: "Modular", correct: true }
-    ]
+    answers: ["Relational", "Hierarchical", "Network", "Modular"],
+    correctAnswer: 3
   },
   {
     question: "Which scheduling algorithm gives the minimum average waiting time?",
-    answers: [
-      { text: "First-Come-First-Serve", correct: false },
-      { text: "Round Robin", correct: false },
-      { text: "Shortest Job First", correct: true },
-      { text: "Priority Scheduling", correct: false }
-    ]
+    answers: ["First-Come-First-Serve", "Round Robin", "Shortest Job First", "Priority Scheduling"],
+    correctAnswer: 2
   },
   {
     question: "What does DNS stand for in networking?",
-    answers: [
-      { text: "Dynamic Name System", correct: false },
-      { text: "Domain Name System", correct: true },
-      { text: "Data Name Service", correct: false },
-      { text: "Domain Network Service", correct: false }
-    ]
+    answers: ["Dynamic Name System", "Domain Name System", "Data Name Service", "Domain Network Service"],
+    correctAnswer: 1
   },
   {
     question: "Which algorithm is used for finding the shortest path in a graph?",
-    answers: [
-      { text: "Kruskal’s Algorithm", correct: false },
-      { text: "Prim’s Algorithm", correct: false },
-      { text: "Dijkstra’s Algorithm", correct: true },
-      { text: "Bellman-Ford Algorithm", correct: false }
-    ]
+    answers: ["Kruskal's Algorithm", "Prim's Algorithm", "Dijkstra's Algorithm", "Bellman-Ford Algorithm"],
+    correctAnswer: 2
   },
   {
     question: "What is the primary purpose of an operating system?",
-    answers: [
-      { text: "To compile code", correct: false },
-      { text: "To provide a user interface", correct: false },
-      { text: "To manage computer hardware and software", correct: true },
-      { text: "To debug programs", correct: false }
-    ]
+    answers: ["To compile code", "To provide a user interface", "To manage computer hardware and software", "To debug programs"],
+    correctAnswer: 2
   }
 ];
 
@@ -175,99 +139,166 @@ const rooms = {};
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
-  socket.on("joinRoom", (roomId, name) => {
+  socket.on("joinRoom", (roomId, playerName) => {
     socket.join(roomId);
 
-    if (!rooms[roomId]) rooms[roomId] = { players: {} };
+    if (!rooms[roomId]) {
+      rooms[roomId] = {
+        players: {},
+        currentQuestion: 0,
+        questionTimer: null
+      };
+    }
 
-    if (!rooms[roomId].players[socket.id]) {
-      rooms[roomId].players[socket.id] = { name, score: 0, timer: null };
-      sendNewQuestionToPlayer(roomId, socket.id);
+    rooms[roomId].players[socket.id] = {
+      id: socket.id,
+      name: playerName,
+      score: 0
+    };
+
+    console.log(`Player ${playerName} joined room ${roomId}`);
+    
+    // Update all players with the current scores
+    io.to(roomId).emit("updateScores", getScoresArray(roomId));
+
+    // Start game when at least one player has joined
+    // For testing, we'll start with just one player
+    // In production, you might want to wait for 2+ players
+    if (Object.keys(rooms[roomId].players).length >= 1) {
+      setTimeout(() => sendQuestion(roomId), 2000);
     }
   });
 
   socket.on("submitAnswer", (roomId, answerIndex) => {
-    const player = rooms[roomId]?.players[socket.id];
+    const room = rooms[roomId];
+    if (!room) return;
+    
+    const player = room.players[socket.id];
     if (!player) return;
 
-    const currentQuestion = player.currentQuestion;
+    const currentQuestionIndex = room.currentQuestion;
+    const currentQuestion = questions[currentQuestionIndex];
+    
     if (!currentQuestion) return;
 
-    const isCorrect = currentQuestion.answers[answerIndex]?.correct;
-    if (isCorrect) player.score++;
+    const isCorrect = currentQuestion.correctAnswer === answerIndex;
+    if (isCorrect) {
+      player.score += 10;
+    }
 
-    clearTimeout(player.timer);
+    // Clear the question timer to prevent auto-proceeding
+    clearTimeout(room.questionTimer);
 
-    io.to(socket.id).emit("answerResult", {
+    // Send answer result to all players in the room
+    io.to(roomId).emit("answerResult", {
       playerName: player.name,
       isCorrect,
-      correctAnswer: currentQuestion.answers.findIndex((a) => a.correct),
-      scores: Object.values(rooms[roomId].players).map((p) => ({
-        name: p.name,
-        score: p.score,
-      })),
+      correctAnswer: currentQuestion.answers[currentQuestion.correctAnswer],
+      scores: getScoresArray(roomId)
     });
 
-    const winner = Object.values(rooms[roomId].players).find((p) => p.score >= 5);
-    if (winner) {
-      io.to(roomId).emit("gameOver", { winner: winner.name });
-      clearAllPlayerTimers(roomId);
-      delete rooms[roomId];
+    // Check if we should end the game
+    const highestScore = Math.max(...Object.values(room.players).map(p => p.score));
+    if (highestScore >= 50 || currentQuestionIndex >= questions.length - 1) {
+      // Find the winner(s)
+      const winners = Object.values(room.players)
+        .filter(p => p.score === highestScore)
+        .map(p => p.name);
+      
+      io.to(roomId).emit("gameOver", {
+        winner: winners.join(" & "), // In case of a tie
+        scores: getScoresArray(roomId)
+      });
+      
+      // Clean up the room after a delay
+      setTimeout(() => {
+        delete rooms[roomId];
+      }, 10000);
     } else {
-      setTimeout(() => sendNewQuestionToPlayer(roomId, socket.id), 1500);
+      // Move to next question after a delay
+      setTimeout(() => {
+        room.currentQuestion = (room.currentQuestion + 1) % questions.length;
+        sendQuestion(roomId);
+      }, 3000);
     }
   });
 
   socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+    
+    // Check all rooms for this player
     for (const roomId in rooms) {
-      const player = rooms[roomId].players[socket.id];
-      if (player) {
-        clearTimeout(player.timer);
-        delete rooms[roomId].players[socket.id];
-        if (Object.keys(rooms[roomId].players).length === 0) {
+      const room = rooms[roomId];
+      
+      // If player was in this room
+      if (room.players[socket.id]) {
+        // Remove player
+        delete room.players[socket.id];
+        
+        // Notify remaining players
+        io.to(roomId).emit("playerLeft", {
+          playerId: socket.id,
+          message: `${room.players[socket.id]?.name || 'A player'} has left the game`,
+          scores: getScoresArray(roomId)
+        });
+        
+        // If room is empty, clean it up
+        if (Object.keys(room.players).length === 0) {
+          clearTimeout(room.questionTimer);
           delete rooms[roomId];
         }
       }
     }
-    console.log("User disconnected:", socket.id);
   });
 });
 
-function sendNewQuestionToPlayer(roomId, socketId) {
-  const player = rooms[roomId]?.players[socketId];
-  if (!player) return;
+// Helper function to get scores in the expected format
+function getScoresArray(roomId) {
+  const room = rooms[roomId];
+  if (!room) return [];
+  
+  return Object.values(room.players).map(p => ({
+    name: p.name,
+    score: p.score
+  }));
+}
 
-  const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
-  player.currentQuestion = randomQuestion;
-
-  io.to(socketId).emit("newQuestion", {
-    question: randomQuestion.question,
-    answers: randomQuestion.answers.map((a) => a.text),
-    timer: 10,
+// Send the current question to all players in a room
+function sendQuestion(roomId) {
+  const room = rooms[roomId];
+  if (!room) return;
+  
+  const currentQuestionIndex = room.currentQuestion;
+  const question = questions[currentQuestionIndex];
+  
+  if (!question) {
+    console.error("No question found at index", currentQuestionIndex);
+    return;
+  }
+  
+  // Send the question to all players in the room
+  io.to(roomId).emit("newQuestion", {
+    question: question.question,
+    answers: question.answers,
+    timer: 10
   });
-
-  player.timer = setTimeout(() => {
-    io.to(socketId).emit("answerResult", {
-      playerName: player.name,
+  
+  // Set a timer to auto-proceed if no one answers
+  room.questionTimer = setTimeout(() => {
+    io.to(roomId).emit("answerResult", {
+      playerName: "Time's up!",
       isCorrect: false,
-      correctAnswer: randomQuestion.answers.findIndex((a) => a.correct),
-      scores: Object.values(rooms[roomId].players).map((p) => ({
-        name: p.name,
-        score: p.score,
-      })),
+      correctAnswer: question.answers[question.correctAnswer],
+      scores: getScoresArray(roomId)
     });
-    setTimeout(() => sendNewQuestionToPlayer(roomId, socketId), 1500);
-  }, 10000);
+    
+    // Move to next question after timeout
+    setTimeout(() => {
+      room.currentQuestion = (room.currentQuestion + 1) % questions.length;
+      sendQuestion(roomId);
+    }, 3000);
+  }, 10000); // 10 seconds timeout
 }
-
-function clearAllPlayerTimers(roomId) {
-  const players = rooms[roomId]?.players;
-  if (!players) return;
-  Object.values(players).forEach((p) => clearTimeout(p.timer));
-}
-
-// ---------------------------------------------------------------------
-
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
