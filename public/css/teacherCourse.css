@@ -1,3 +1,4 @@
+
 :root {
   --bg: #f4f7fb;
   --card: #ffffff;
@@ -552,6 +553,22 @@ main {
 .course-detail-modal .modal-content {
   max-width: 800px;
 }
+.form-container {
+  max-height: 80vh; /* Adjust based on your layout */
+  overflow-y: auto;
+  padding-right: 10px; /* To avoid content cutting off due to scrollbar */
+}
+
+/* Optional scrollbar styling */
+.form-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
 
 @keyframes modalFadeIn {
   from {
@@ -585,9 +602,47 @@ main {
   color: var(--text-secondary);
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* Set to flex when active */
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .modal-body {
   padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
 }
+
+
 
 .form-group {
   margin-bottom: 1.5rem;

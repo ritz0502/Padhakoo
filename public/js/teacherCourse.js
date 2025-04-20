@@ -545,6 +545,8 @@ window.addEventListener("click", (e) => {
 
 // Add Course
 addCourseBtn.addEventListener("click", openAddCourseModal)
+document.getElementById('add-course-modal').style.display = 'flex';
+
 
 addCourseForm.addEventListener("submit", (e) => {
   e.preventDefault()
