@@ -352,7 +352,7 @@ button {
   padding: 90px 24px 24px;
   overflow-y: auto;
   height: 100vh;
-  margin-left: 240px;
+  margin-left: 20px;
   transition: margin-left 0.3s ease;
 }
 
@@ -662,6 +662,8 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
+  max-width: none; /* Remove any max-width if it exists */
+  padding-left: 0; /* Remove any left padding */
 }
 
 .course-card {
