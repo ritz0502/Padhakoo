@@ -119,19 +119,21 @@
 
         /* Navbar Styles */
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background-color: var(--card);
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 5px var(--shadow);
-        }
+    height: 70px;
+    display: flex
+;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: var(--card);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 5px var(--shadow);
+}
 
         .nav-links {
             display: flex;
             gap: 30px;
-            margin-left: 500px;
+            margin-left: 320px;
         }
 
         .nav-link {
@@ -158,7 +160,7 @@
             font-size: 20px;
         }
 
-        .user-profile {
+        /* .user-profile {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -168,7 +170,22 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-        }
+        } */
+
+        user-profile {
+    width: 10px;   /* or your preferred width */
+    height: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-profile img {
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+}
 
         /* Dashboard Content */
         .dashboard {
@@ -549,14 +566,13 @@
                 <button class="menu-toggle">☰</button>
                 <div class="nav-links">
                     <a href="teacherCourse.html" class="nav-link">Courses</a>
-                    <a href="teacher" class="nav-link">Dashboard</a>
                     <a href="teacherDash.html" class="nav-link">Dashboard</a>
                     <a href="teacherStudents.html" class="nav-link">Students</a>
                     <a href="teacherAnalysis.html" class="nav-link active">Analytics</a>
                 </div>
                 <div class="nav-controls">
                     <button class="theme-toggle">🌙</button>
-                    <div class="user-profile">IN</div>
+                    <div class="user-profile"><img src="profile.jpeg" alt="User Profile"></div>
                 </div>
             </div>
             
