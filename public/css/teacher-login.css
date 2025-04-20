@@ -232,6 +232,23 @@ body::before {
     background-position: center;
     background-repeat: no-repeat;
   }
+
+  .back-to-home {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.back-to-home a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.back-to-home a:hover {
+    text-decoration: underline;
+}
   
   /* Dark Theme Adjustments */
   [data-theme="dark"] body {

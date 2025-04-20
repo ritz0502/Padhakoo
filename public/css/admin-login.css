@@ -1,28 +1,45 @@
 /* Root Variables */
 :root {
-    --primary: #4c60ff;
-    --accent: #2f80ed;
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --bg-light: #f9f9f9;
-    --bg-dark: #1e1e1e;
-    --input-bg: #ffffff;
-    --input-border: #ccc;
-    --error: #ff4d4f;
-    --success: #4caf50;
+    --primary-color: #4a6cf7;
+    --primary-light: #eef2ff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --text-primary: #333;
+    --text-secondary: #6c757d;
+    --text-muted: #999;
+    --bg-body: #f8f9fa;
+    --bg-card: #fff;
+    --bg-sidebar: #fff;
+    --bg-navbar: #fff;
+    --border-color: #e9ecef;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+    --font-family: "Poppins", sans-serif;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --transition: all 0.3s ease;
   }
   
+  /* Dark Theme */
   [data-theme="dark"] {
-    --primary: #4c60ff;
-    --accent: #5393ff;
-    --text-light: #e0e0e0;
-    --text-dark: #ffffff;
-    --bg-light: #1e1e1e;
-    --bg-dark: #121212;
-    --input-bg: #2b2b2b;
-    --input-border: #444;
-    --error: #ff6b6b;
-    --success: #66bb6a;
+    --primary-color: #5a7bff;
+    --primary-light: #293256;
+    --text-primary: #e9ecef;
+    --text-secondary: #adb5bd;
+    --text-muted: #6c757d;
+    --bg-body: #121212;
+    --bg-card: #1e1e1e;
+    --bg-sidebar: #1e1e1e;
+    --bg-navbar: #1e1e1e;
+    --border-color: #343a40;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
   }
   
   /* General Reset */
@@ -223,7 +240,22 @@ body::before {
     font-size: 14px;
     color: var(--error);
   }
-  
+  .back-to-home {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.back-to-home a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.back-to-home a:hover {
+    text-decoration: underline;
+}
   /* Image Side */
   .image-side {
     flex: 1;

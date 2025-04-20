@@ -1,67 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Padhakoo - Student Login</title>
-    <link rel="stylesheet" href="../css/student-login.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Padhakoo - Student Login</title>
+  <link rel="stylesheet" href="../css/student-login.css" />
 </head>
 <body>
-    <div class="container"
-    <img src = "public/images/loginbackground.jpeg">
-        <div class="login-form">
-            <button class="theme-switch" id="theme-toggle">🌙</button>
-            <div class="login-header">
-                <img src="../images/padhakoo.logo.png" alt="Padhakoo Logo" class="logo">
-                <h1>Padhakoo</h1>
-                <p>Student Login</p>
+  <div class="container">
+    <div class="login-form-wrapper">
+      <div class="login-form">
+        <button class="theme-switch" id="theme-toggle">🌙</button>
+
+        <div class="login-header">
+          <img src="../images/padhakoo.logo.png" alt="Padhakoo Logo" class="logo" />
+          <h1>Padhakoo</h1>
+          <p>Student Login</p>
+        </div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="input-field"
+              placeholder="username@example.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                id="password"
+                class="input-field"
+                placeholder="••••••••"
+                required
+              />
+              <button type="button" class="toggle-password" id="toggle-password">
+                👁️
+              </button>
             </div>
-            
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="input-field" placeholder="username@example.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="password-field">
-                        <input type="password" id="password" class="input-field" placeholder="••••••••" required>
-                        <button type="button" class="toggle-password" id="toggle-password">👁️</button>
-                    </div>
-                </div>
-                
-                <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </div>
-                
-                <button type="submit" class="login-btn">Sign In</button>
-                
-                <div id="status-message"></div>
-                
-                <div class="social-login">
-                    <p>or continue with</p>
-                    <div class="social-icons">
-                        <div class="social-icon" id="google-login">
-                            <img src="public/images/google.png" alt="Google">
-                        </div>
-                        <div class="social-icon" id="github-login">
-                            <img src="public/images/github.png" alt="GitHub">
-                        </div>
-                        <div class="social-icon" id="facebook-login">
-                            <img src="public/images/facebook.png" alt="Facebook">
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        
-        <div class="image-side">
-           
-        </div>
+          </div>
+
+          <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="login-btn">Sign In</button>
+
+          <div id="status-message"></div>
+
+          <div class="social-login">
+            <p>or continue with</p>
+            <div class="social-icons">
+              <div class="social-icon" id="google-login">
+                <img src="../images/google.jpg" alt="Google" />
+              </div>
+              <div class="social-icon" id="github-login">
+                <img src="../images/github.png" alt="GitHub" />
+              </div>
+              <div class="social-icon" id="facebook-login">
+                <img src="../images/facebook.jpg" alt="Facebook" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Back to homepage -->
+          <div class="back-to-home">
+            <a href="../pages/landingpage.html"><span style="font-size: 1.2em;">←</span> Back to Homepage</a>
+          </div>
+        </form>
+      </div>
     </div>
-    
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="../js/student-login.js"></script>
+
+    <div class="image-side">
+      <img src="public/images/loginbackground.jpg" />
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="../js/student-login.js"></script>
 </body>
 </html>
