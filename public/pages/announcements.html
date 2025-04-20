@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padhakoo LMS - Announcements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3366cc;
+            --secondary: #f0f2f5;
+            --text-dark: #333;
+            --border-color: #e1e4e8;
+            --highlight-yellow: #FFC107;
+            --highlight-green: #4CAF50;
+            --highlight-red: #F44336;
+            --sidebar-width: 250px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f9fafb;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        .logo {
+            padding: 0 20px 20px;
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .main-menu, .calendar, .settings {
+            margin: 20px 0;
+        }
+        
+        .menu-title {
+            padding: 0 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .menu-item:hover {
+            background-color: var(--secondary);
+        }
+        
+        .menu-item.active {
+            background-color: #e6f0ff;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 10px 15px;
+            width: 300px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-left: 8px;
+        }
+        
+        .user-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            overflow: hidden;
+        }
+        
+        .user-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .filter-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .filter-tab:hover {
+            color: var(--primary);
+        }
+        
+        .filter-tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Announcements Page Styles */
+        .announcement-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .announcement-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .announcement-date {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .announcement-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .announcement-course {
+            display: inline-block;
+            background-color: #e6f0ff;
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 60px;
+            }
+            
+            .menu-item span, .logo span, .menu-title {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">Padhakoo</div>
+        
+        <div class="main-menu">
+            <div class="menu-title">MAIN MENU</div>
+            <a href="../pages/studentDash.html" class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="../pages/studentCourses.html" class="menu-item">
+                <i class="fas fa-book"></i>
+                <span>My Courses</span>
+            </a>
+            <a href="../pages/announcements.html" class="menu-item active">
+                <i class="fas fa-bullhorn"></i>
+                <span>Announcements</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-tasks"></i>
+                <span>Quizzes</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Performance</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-book-open"></i>
+                <span>Library</span>
+            </a>
+        </div>
+        
+        <div class="calendar">
+            <div class="menu-title">CALENDAR</div>
+            <a href="../pages/schedule.html" class="menu-item">
+                <i class="fas fa-calendar"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="../pages/deadlines.html" class="menu-item">
+                <i class="fas fa-clock"></i>
+                <span>Deadlines</span>
+            </a>
+        </div>
+        
+        <div class="settings">
+            <div class="menu-title">SETTINGS</div>
+            <a href="../pages/profile.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="../pages/student-login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search courses, lessons...">
+            </div>
+            <div class="user-profile">
+                <img src="/api/placeholder/40/40" alt="User Profile">
+            </div>
+        </div>
+        
+        <!-- Announcements Page -->
+        <div id="announcements-page">
+            <h1 class="page-title">Announcements</h1>
+            
+            <div class="filter-tabs">
+                <div class="filter-tab active" data-filter="all">All</div>
+                <div class="filter-tab" data-filter="cs">Computer Science</div>
+                <div class="filter-tab" data-filter="elec">Electronics</div>
+                <div class="filter-tab" data-filter="ce">Computer Engineering</div>
+            </div>
+            
+            <div class="announcements-container">
+                <div class="announcement-card" data-category="cs">
+                    <div class="announcement-header">
+                        <div class="announcement-title">Python Workshop Next Week</div>
+                        <div class="announcement-date">April 23, 2025</div>
+                    </div>
+                    <div class="announcement-content">
+                        We're excited to announce a special Python workshop next Wednesday. The session will focus on advanced topics including decorators, generators, and async programming. Please bring your laptops with Python 3.12 installed.
+                    </div>
+                    <div class="announcement-course">Intro to Programming</div>
+                </div>
+                
+                <div class="announcement-card" data-category="elec">
+                    <div class="announcement-header">
+                        <div class="announcement-title">Lab Equipment Update</div>
+                        <div class="announcement-date">April 19, 2025</div>
+                    </div>
+                    <div class="announcement-content">
+                        We have received new oscilloscopes and function generators for the Electronics lab. You'll be using these in next week's lab session. Please review the equipment manual linked in the course materials.
+                    </div>
+                    <div class="announcement-course">Electronics</div>
+                </div>
+                
+                <div class="announcement-card" data-category="cs">
+                    <div class="announcement-header">
+                        <div class="announcement-title">Data Structures Quiz Postponed</div>
+                        <div class="announcement-date">April 18, 2025</div>
+                    </div>
+                    <div class="announcement-content">
+                        Due to scheduling conflicts, the Data Structures quiz originally scheduled for April 22 has been moved to April 24. The quiz will cover all topics through Binary Search Trees. Review sessions will be held on April 22.
+                    </div>
+                    <div class="announcement-course">Data Structures</div>
+                </div>
+                
+                <div class="announcement-card" data-category="ce">
+                    <div class="announcement-header">
+                        <div class="announcement-title">Web Dev Live Session</div>
+                        <div class="announcement-date">April 18, 2025</div>
+                    </div>
+                    <div class="announcement-content">
+                        There will be a special live coding session on React Hooks this Sunday. Join us to learn practical implementations of useEffect, useContext, and custom hooks. The session will be recorded for those who can't attend.
+                    </div>
+                    <div class="announcement-course">Full Stack Web Dev</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality for announcements
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const announcementCards = document.querySelectorAll('.announcement-card');
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Show/hide announcement cards based on filter
+                    announcementCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
