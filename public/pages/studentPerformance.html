@@ -441,11 +441,11 @@
         <div class="sidebar" id="sidebar">
             <a href="#" class="logo">Padhakoo</a>
             <div class="menu-category">MAIN MENU</div>
-            <a href="#" class="menu-item" data-page="dashboard">
+            <a href="./studentDash.html" class="menu-item" data-page="dashboard">
                 <i class="fas fa-home menu-icon"></i>
                 Dashboard
             </a>
-            <a href="#" class="menu-item" data-page="courses">
+            <a href="../pages/studentCourses.html" class="menu-item" data-page="courses">
                 <i class="fas fa-book menu-icon"></i>
                 My Courses
             </a>
@@ -453,15 +453,15 @@
                 <i class="fas fa-bullhorn menu-icon"></i>
                 Announcements
             </a>
-            <a href="#" class="menu-item" data-page="quizzes">
+            <a href="../pages/quizPage.html" class="menu-item" data-page="quizzes">
                 <i class="fas fa-question-circle menu-icon"></i>
                 Quizzes
             </a>
-            <a href="#" class="menu-item active" data-page="performance">
+            <a href="../pages/studentPerformance.html" class="menu-item active" data-page="performance">
                 <i class="fas fa-chart-line menu-icon"></i>
                 Performance
             </a>
-            <a href="#" class="menu-item" data-page="library">
+            <a href="../pages/libraryPage.html" class="menu-item" data-page="library">
                 <i class="fas fa-book-open menu-icon"></i>
                 Library
             </a>
@@ -485,12 +485,12 @@
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item" data-filter="course-all">All Courses</a>
-                            <a href="#" class="dropdown-item" data-filter="course-math">Mathematics</a>
-                            <a href="#" class="dropdown-item" data-filter="course-science">Science</a>
-                            <a href="#" class="dropdown-item" data-filter="course-english">English</a>
-                            <a href="#" class="dropdown-item" data-filter="course-arts">Arts</a>
-                            <a href="#" class="dropdown-item" data-filter="course-phys">Physical Education</a>
+                            <a href="#" class="dropdown-item" data-filter="course-all">All Branches</a>
+                            <a href="#" class="dropdown-item" data-filter="course-math">CSE</a>
+                            <a href="#" class="dropdown-item" data-filter="course-science">Comps</a>
+                            <a href="#" class="dropdown-item" data-filter="course-english">AIML</a>
+                            <a href="#" class="dropdown-item" data-filter="course-arts">DS</a>
+                            <a href="#" class="dropdown-item" data-filter="course-phys">EXTC</a>
                         </div>
                     </div>
                     <div class="dropdown" id="tagDropdown">
@@ -537,16 +537,16 @@
                     </div>
                     <div class="filter-card">
                         <div class="filter-title">
-                            Select Grade
+                            Select Branch
                             <i class="fas fa-info-circle"></i>
                         </div>
                         <select id="gradeFilter">
                             <option value="all">All</option>
-                            <option value="grade1">Grade 1</option>
-                            <option value="grade2">Grade 2</option>
-                            <option value="grade3">Grade 3</option>
-                            <option value="grade4">Grade 4</option>
-                            <option value="grade5">Grade 5</option>
+                            <option value="grade1">CSE</option>
+                            <option value="grade2">Comps</option>
+                            <option value="grade3">AIML</option>
+                            <option value="grade4">DS</option>
+                            <option value="grade5">EXTC</option>
                         </select>
                     </div>
                     <div class="filter-card">
@@ -957,25 +957,7 @@
             charts.examinationChart.update();
         }
 
-        // Handle menu item clicks
-        function setupMenuItems() {
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                    
-                    // For demo purposes, show different content based on selected menu
-                    const page = item.getAttribute('data-page');
-                    console.log(`Navigating to: ${page}`);
-                    
-                    // On mobile, close the sidebar after clicking
-                    if (window.innerWidth <= 768) {
-                        sidebar.classList.remove('show');
-                    }
-                });
-            });
-        }
+       
 
         // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
