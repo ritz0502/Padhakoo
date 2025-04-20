@@ -613,7 +613,7 @@
         font-weight: 600;
         margin-bottom: 10px;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+       
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
@@ -2075,7 +2075,7 @@
       textarea,
       select {
         font-size: 16px; /* Prevents auto-zoom on focus */
-        -webkit-appearance: none; /* Removes default styling on some browsers */
+         /* Removes default styling on some browsers */
         border-radius: 8px;
       }
 
@@ -2109,11 +2109,17 @@
       </div>
       <div class="sidebar-menu">
         <div class="menu-heading">MAIN MENU</div>
-        <a href="#" class="menu-item active">
+        <a href="teacherDash.html" class="menu-item active">
           <i class="fas fa-home"></i>
           <span>Dashboard</span>
         </a>
+
         <a href="teacherCourse.html" class="menu-item">
+
+        <a href="../pages/teacherCourse.html" class="menu-item">
+
+        <a href="teacherCourse.html" class="menu-item">
+
           <i class="fas fa-book"></i>
           <span>My Courses</span>
         </a>
@@ -2426,12 +2432,11 @@
         });
 
         const categoriesGrid = document.querySelector(".categories-grid");
-        const categoryCard = document.querySelector(
-      .category-card .category-name:contains('${department.replace("_", " ").toUpperCase()}')
-        ).parentElement;
+        const categoryCard = document.querySelector(".category-card .category-name:contains('${department.replace("_", " ").toUpperCase()}')").parentElement;
+
         const countElement = categoryCard.querySelector(".category-count");
         const currentCount = parseInt(countElement.textContent) || 0;
-        countElement.textContent = ${currentCount + 1} Courses;
+        countElement.textContent = `${currentCount + 1} Courses`;
 
     closeAddCourseModal();
       };

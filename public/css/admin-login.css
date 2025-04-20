@@ -1,0 +1,254 @@
+/* Root Variables */
+:root {
+    --primary: #4c60ff;
+    --accent: #2f80ed;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --bg-light: #f9f9f9;
+    --bg-dark: #1e1e1e;
+    --input-bg: #ffffff;
+    --input-border: #ccc;
+    --error: #ff4d4f;
+    --success: #4caf50;
+  }
+  
+  [data-theme="dark"] {
+    --primary: #4c60ff;
+    --accent: #5393ff;
+    --text-light: #e0e0e0;
+    --text-dark: #ffffff;
+    --bg-light: #1e1e1e;
+    --bg-dark: #121212;
+    --input-bg: #2b2b2b;
+    --input-border: #444;
+    --error: #ff6b6b;
+    --success: #66bb6a;
+  }
+  
+  /* General Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Page Layout */
+  body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('../images/loginbackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3; /* Adjust this value as needed */
+    z-index: -1; /* Puts it behind the content */
+}
+
+  /* Container */
+  .container {
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1);
+    background-color: var(--bg-light);
+  }
+  
+  /* Login Form Side */
+  .login-form {
+    flex: 1;
+    padding: 40px;
+    position: relative;
+    background-color: var(--bg-light);
+  }
+  
+  /* Theme Toggle Button */
+  .theme-switch {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-dark);
+  }
+  
+  .logo {
+    width: 50px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header img.logo {
+    width: 100px;
+    margin-bottom: -20px;
+}
+
+.login-header h1 {
+    color: var(--text-primary);
+    font-size: 28px;
+    
+    margin-bottom: 0px;
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: -20px;
+}
+
+.login-form {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--card); /* ✅ Use variable */
+    position: relative;
+    z-index: 1;
+}
+
+  /* Form Elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 14px;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(76, 96, 255, 0.2);
+  }
+  
+  /* Password Field with Toggle */
+  .password-field {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--accent);
+  }
+  
+  /* Forgot Password Link */
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .forgot-password a {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  
+  /* Submit Button */
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-btn:hover {
+    background-color: #3b50e0;
+  }
+  
+  /* Toggle Link */
+  .toggle-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .toggle-link a {
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  /* Status Message */
+  #status-message {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--error);
+  }
+  
+  /* Image Side */
+  .image-side {
+    flex: 1;
+    background-image: url('../images/login3.jpg'); /* Replace with actual teacher image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* Dark Theme Adjustments */
+  [data-theme="dark"] body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+  }
+  
+  [data-theme="dark"] .login-form {
+    background-color: var(--bg-dark);
+  }
+  
+  [data-theme="dark"] .input-field {
+    background-color: var(--input-bg);
+    color: var(--text-light);
+  }
+  
+  [data-theme="dark"] .theme-switch {
+    color: var(--text-light);
+  }
+  

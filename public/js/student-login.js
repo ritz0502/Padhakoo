@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loginBtn.disabled = true;
         
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -77,9 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Redirect to dashboard after successful login
                 // Redirect to teacherDash.html after successful login
-setTimeout(() => {
-    window.location.href = '/pages/teacherDash.html';
-}, 1500);
+                setTimeout(() => {
+                    window.location.href = '../pages/studentDash.html';
+                }, 1500);
 
             } else {
                 // Error message

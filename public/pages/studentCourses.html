@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduConnect - My Courses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/studentCourses.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Padhakoo</span>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <div class="menu-heading">Main Menu</div>
+          <a href="studentDash.html" class="menu-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="studentCourses.html" class="menu-item courses active">
+            <i class="fas fa-book"></i>
+            <span>My Courses</span>
+          </a>
+          <a href="../pages/announcements.html" class="menu-item announcements">
+            <i class="fas fa-bullhorn"></i>
+            <span>Announcements</span>
+          </a>
+          <a href="../pages/" class="menu-item quiz">
+            <i class="fas fa-tasks"></i>
+            <span>Quizzes</span>
+          </a>
+          <a href="#" class="menu-item performance">
+            <i class="fas fa-chart-line"></i>
+            <span>Performance</span>
+          </a>
+          <a href="../pages/libraryPage.html" class="menu-item library">
+            <i class="fas fa-book-open"></i>
+            <span>Library</span>
+          </a>
+
+          <div class="menu-heading">Calendar</div>
+          <a href="../pages/schedule.html" class="menu-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Schedule</span>
+          </a>
+          <a href="../pages/deadlines.html" class="menu-item">
+            <i class="fas fa-clock"></i>
+            <span>Deadlines</span>
+          </a>
+
+          <div class="menu-heading">Settings</div>
+          <a href="../pages/profile.html" class="menu-item">
+            <i class="fas fa-user-cog"></i>
+            <span>Profile</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+          <a href="../pages/landingpage.html" class="menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navbar -->
+      <div class="navbar">
+        <div class="navbar-left">
+          <button class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search courses, lessons..." />
+          </div>
+        </div>
+        <div class="navbar-right">
+          <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="calendar-toggle">
+            <i class="fas fa-calendar-alt"></i>
+          </button>
+          <div class="user-profile">
+            <img
+              src="https://i.pravatar.cc/150?img=32"
+              alt="User"
+              class="user-avatar"
+            />
+            <div class="user-info">
+              <div class="user-name">Alex Johnson</div>
+              <div class="user-role">Student</div>
+            </div>
+            <div class="profile-dropdown">
+              <div class="dropdown-user-info">
+                <img src="https://i.pravatar.cc/150?img=32" alt="User" />
+                <div class="user-name">Alex Johnson</div>
+                <div class="user-role">Student ID: ST12345</div>
+              </div>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-user"></i> My Profile
+              </a>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-cog"></i> Account Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Courses Header -->
+        <div class="section-header courses-header">
+          <div class="section-title">My Courses</div>
+          <div class="courses-actions">
+            <div class="view-options">
+              <button class="btn btn-outline btn-sm active">
+                <i class="fas fa-th-large"></i> Grid
+              </button>
+              <button class="btn btn-outline btn-sm">
+                <i class="fas fa-list"></i> List
+              </button>
+            </div>
+            <div class="filter-options">
+              <select class="form-select">
+                <option>All Courses</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+                <option>Not Started</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Courses Grid -->
+        <div class="courses-grid">
+          <!-- Course 1 -->
+          <div
+            class="course-card"
+            onclick="window.location.href='studentCourseDet.html'"
+          >
+            <div class="course-image">
+              <img src="../images/course-image1.jpg" alt="Course" />
+              <div class="course-badge">In Progress</div>
+            </div>
+            <div class="course-details">
+              <h3 class="course-title">
+                Introduction to Programming with Python
+              </h3>
+              <div class="course-meta">
+                <div class="course-instructor">
+                  <i class="fas fa-user"></i> Dr. Sarah Miller
+                </div>
+                <div class="completion-rate">
+                  <i class="fas fa-check-circle"></i> 75%
+                </div>
+              </div>
+              <div class="course-progress">
+                <div class="progress-bar" style="width: 75%"></div>
+              </div>
+              <div class="course-stats">
+                <div class="stat">
+                  <i class="fas fa-book"></i>
+                  <span>8 Modules</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-clock"></i>
+                  <span>24 Hours</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>8 Weeks</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-play"></i> Continue
+                </button>
+                <button class="btn btn-outline btn-sm course-info-btn">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 2 -->
+          <div
+            class="course-card"
+            onclick="window.location.href='studentCourseDet.html'"
+          >
+            <div class="course-image">
+              <img src="../images/course-image2.jpg" alt="Course" />
+              <div class="course-badge">In Progress</div>
+            </div>
+            <div class="course-details">
+              <h3 class="course-title">Data Structures and Algorithms</h3>
+              <div class="course-meta">
+                <div class="course-instructor">
+                  <i class="fas fa-user"></i> Prof. James Wilson
+                </div>
+                <div class="completion-rate">
+                  <i class="fas fa-check-circle"></i> 45%
+                </div>
+              </div>
+              <div class="course-progress">
+                <div class="progress-bar" style="width: 45%"></div>
+              </div>
+              <div class="course-stats">
+                <div class="stat">
+                  <i class="fas fa-book"></i>
+                  <span>12 Modules</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-clock"></i>
+                  <span>36 Hours</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>12 Weeks</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-play"></i> Continue
+                </button>
+                <button class="btn btn-outline btn-sm course-info-btn">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 3 -->
+          <div
+            class="course-card"
+            onclick="window.location.href='studentCourseDet.html'"
+          >
+            <div class="course-image">
+              <img src="../images/course-image3.jpg" alt="Course" />
+              <div class="course-badge">Not Started</div>
+            </div>
+            <div class="course-details">
+              <h3 class="course-title">Full Stack Web Development</h3>
+              <div class="course-meta">
+                <div class="course-instructor">
+                  <i class="fas fa-user"></i> Jennifer Lee
+                </div>
+                <div class="completion-rate">
+                  <i class="fas fa-check-circle"></i> 0%
+                </div>
+              </div>
+              <div class="course-progress">
+                <div class="progress-bar" style="width: 0%"></div>
+              </div>
+              <div class="course-stats">
+                <div class="stat">
+                  <i class="fas fa-book"></i>
+                  <span>15 Modules</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-clock"></i>
+                  <span>45 Hours</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>15 Weeks</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-play"></i> Start
+                </button>
+                <button class="btn btn-outline btn-sm course-info-btn">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 4 -->
+          <div
+            class="course-card"
+            onclick="window.location.href='studentCourseDet.html'"
+          >
+            <div class="course-image">
+              <img src="../images/course-image4.jpg" alt="Course" />
+              <div class="course-badge">Completed</div>
+            </div>
+            <div class="course-details">
+              <h3 class="course-title">Database Management Systems</h3>
+              <div class="course-meta">
+                <div class="course-instructor">
+                  <i class="fas fa-user"></i> Dr. Michael Brown
+                </div>
+                <div class="completion-rate">
+                  <i class="fas fa-check-circle"></i> 100%
+                </div>
+              </div>
+              <div class="course-progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <div class="course-stats">
+                <div class="stat">
+                  <i class="fas fa-book"></i>
+                  <span>10 Modules</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-clock"></i>
+                  <span>30 Hours</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>10 Weeks</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <button class="btn btn-success btn-sm">
+                  <i class="fas fa-sync-alt"></i> Review
+                </button>
+                <button class="btn btn-outline btn-sm course-info-btn">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 5 -->
+          <div
+            class="course-card"
+            onclick="window.location.href='studentCourseDet.html'"
+          >
+            <div class="course-image">
+              <img src="../images/course-image5.jpg" alt="Course" />
+              <div class="course-badge">In Progress</div>
+            </div>
+            <div class="course-details">
+              <h3 class="course-title">Machine Learning Fundamentals</h3>
+              <div class="course-meta">
+                <div class="course-instructor">
+                  <i class="fas fa-user"></i> Prof. Lisa Wong
+                </div>
+                <div class="completion-rate">
+                  <i class="fas fa-check-circle"></i> 60%
+                </div>
+              </div>
+              <div class="course-progress">
+                <div class="progress-bar" style="width: 60%"></div>
+              </div>
+              <div class="course-stats">
+                <div class="stat">
+                  <i class="fas fa-book"></i>
+                  <span>14 Modules</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-clock"></i>
+                  <span>42 Hours</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>14 Weeks</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-play"></i> Continue
+                </button>
+                <button class="btn btn-outline btn-sm course-info-btn">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 6 -->
+          <div
+            class="course-card"
+            onclick="window.location.href='studentCourseDet.html'"
+          >
+            <div class="course-image">
+              <img src="../images/course-image6.jpg" alt="Course" />
+              <div class="course-badge">In Progress</div>
+            </div>
+            <div class="course-details">
+              <h3 class="course-title">Cybersecurity Essentials</h3>
+              <div class="course-meta">
+                <div class="course-instructor">
+                  <i class="fas fa-user"></i> Dr. Robert Chen
+                </div>
+                <div class="completion-rate">
+                  <i class="fas fa-check-circle"></i> 25%
+                </div>
+              </div>
+              <div class="course-progress">
+                <div class="progress-bar" style="width: 25%"></div>
+              </div>
+              <div class="course-stats">
+                <div class="stat">
+                  <i class="fas fa-book"></i>
+                  <span>8 Modules</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-clock"></i>
+                  <span>24 Hours</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>8 Weeks</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-play"></i> Continue
+                </button>
+                <button class="btn btn-outline btn-sm course-info-btn">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar Sidebar -->
+      <div class="calendar-sidebar">
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <div class="calendar-title">April 2025</div>
+            <div class="calendar-nav">
+              <button class="calendar-nav-btn">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="calendar-nav-btn">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="calendar-grid">
+            <div class="calendar-weekday">Sun</div>
+            <div class="calendar-weekday">Mon</div>
+            <div class="calendar-weekday">Tue</div>
+            <div class="calendar-weekday">Wed</div>
+            <div class="calendar-weekday">Thu</div>
+            <div class="calendar-weekday">Fri</div>
+            <div class="calendar-weekday">Sat</div>
+
+            <!-- Calendar days - first week -->
+            <div class="calendar-day other-month">30</div>
+            <div class="calendar-day other-month">31</div>
+            <div class="calendar-day">1</div>
+            <div class="calendar-day">2</div>
+            <div class="calendar-day">3</div>
+            <div class="calendar-day assignment-deadline">4</div>
+            <div class="calendar-day">5</div>
+
+            <!-- Second week -->
+            <div class="calendar-day">6</div>
+            <div class="calendar-day">7</div>
+            <div class="calendar-day lesson-deadline">8</div>
+            <div class="calendar-day">9</div>
+            <div class="calendar-day">10</div>
+            <div class="calendar-day quiz-deadline">11</div>
+            <div class="calendar-day">12</div>
+
+            <!-- Third week -->
+            <div class="calendar-day">13</div>
+            <div class="calendar-day assignment-deadline lesson-deadline">
+              14
+            </div>
+            <div class="calendar-day">15</div>
+            <div class="calendar-day">16</div>
+            <div class="calendar-day">17</div>
+            <div class="calendar-day">18</div>
+            <div class="calendar-day today">19</div>
+
+            <!-- Fourth week -->
+            <div class="calendar-day">20</div>
+            <div class="calendar-day">21</div>
+            <div class="calendar-day assignment-deadline">22</div>
+            <div class="calendar-day">23</div>
+            <div class="calendar-day quiz-deadline">24</div>
+            <div class="calendar-day">25</div>
+            <div class="calendar-day">26</div>
+
+            <!-- Fifth week -->
+            <div class="calendar-day">27</div>
+            <div class="calendar-day lesson-deadline">28</div>
+            <div class="calendar-day">29</div>
+            <div class="calendar-day">30</div>
+            <div class="calendar-day other-month">1</div>
+            <div class="calendar-day other-month">2</div>
+            <div class="calendar-day other-month">3</div>
+          </div>
+
+          <!-- Calendar legend -->
+          <div class="calendar-legend">
+            <div class="legend-item">
+              <div class="legend-dot assignment"></div>
+              <span>Assignment</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot lesson"></div>
+              <span>Lesson</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot quiz"></div>
+              <span>Quiz</span>
+            </div>
+          </div>
+
+          <div class="upcoming-events">
+            <div class="upcoming-events-header">Upcoming Events</div>
+            <div class="event-list">
+              <div class="event-item assignment">
+                <div class="event-title">Python Programming Assignment</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Intro to Programming
+                  </div>
+                  <div class="event-time">Due Apr 22</div>
+                </div>
+              </div>
+              <div class="event-item quiz">
+                <div class="event-title">Data Structures Quiz</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Data Structures
+                  </div>
+                  <div class="event-time">Apr 24, 10:00 AM</div>
+                </div>
+              </div>
+              <div class="event-item lesson">
+                <div class="event-title">Web Dev Live Session</div>
+                <div class="event-details">
+                  <div class="event-course">
+                    <i class="fas fa-book"></i> Full Stack Web Dev
+                  </div>
+                  <div class="event-time">Apr 28, 2:00 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle theme between light and dark
+      const themeToggle = document.querySelector(".theme-toggle");
+      themeToggle.addEventListener("click", () => {
+        const htmlElement = document.documentElement;
+        const currentTheme = htmlElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        htmlElement.setAttribute("data-theme", newTheme);
+
+        // Update theme icon
+        const themeIcon = themeToggle.querySelector("i");
+        themeIcon.className =
+          newTheme === "light" ? "fas fa-moon" : "fas fa-sun";
+      });
+
+      // Toggle sidebar on mobile
+      const menuToggle = document.querySelector(".menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+
+      // Toggle calendar sidebar on tablet/mobile
+      const calendarToggle = document.querySelector(".calendar-toggle");
+      const calendarSidebar = document.querySelector(".calendar-sidebar");
+      calendarToggle.addEventListener("click", () => {
+        calendarSidebar.classList.toggle("active");
+      });
+
+      // User profile dropdown
+      const userProfile = document.querySelector(".user-profile");
+      const profileDropdown = document.querySelector(".profile-dropdown");
+      userProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("active");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", () => {
+        profileDropdown.classList.remove("active");
+      });
+
+      // Toggle grid/list view
+      const viewButtons = document.querySelectorAll(".view-options .btn");
+      viewButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          viewButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          // Here you would actually change the view style
+          // For example:
+          // if (button.textContent.includes('List')) {
+          //   document.querySelector('.courses-grid').classList.add('list-view');
+          // } else {
+          //   document.querySelector('.courses-grid').classList.remove('list-view');
+          // }
+        });
+      });
+    </script>
+  </body>
+</html>

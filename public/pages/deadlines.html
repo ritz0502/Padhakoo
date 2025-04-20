@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padhakoo LMS - Deadlines</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3366cc;
+            --secondary: #f0f2f5;
+            --text-dark: #333;
+            --border-color: #e1e4e8;
+            --highlight-yellow: #FFC107;
+            --highlight-green: #4CAF50;
+            --highlight-red: #F44336;
+            --sidebar-width: 250px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f9fafb;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        .logo {
+            padding: 0 20px 20px;
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .main-menu, .calendar, .settings {
+            margin: 20px 0;
+        }
+        
+        .menu-title {
+            padding: 0 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .menu-item:hover {
+            background-color: var(--secondary);
+        }
+        
+        .menu-item.active {
+            background-color: #e6f0ff;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 10px 15px;
+            width: 300px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-left: 8px;
+        }
+        
+        .user-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            overflow: hidden;
+        }
+        
+        .user-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .filter-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .filter-tab:hover {
+            color: var(--primary);
+        }
+        
+        .filter-tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Deadlines Page Styles */
+        .deadline-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        
+        .deadline-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .deadline-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .deadline-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .deadline-date {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .deadline-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .deadline-course {
+            display: inline-block;
+            background-color: #e6f0ff;
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .deadline-status {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .status-indicator {
+            height: 8px;
+            border-radius: 4px;
+            flex: 1;
+            background-color: #eee;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        
+        .status-indicator .progress {
+            height: 100%;
+            background-color: var(--highlight-green);
+        }
+        
+        .status-text {
+            font-size: 12px;
+            color: #666;
+            min-width: 100px;
+            text-align: right;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 60px;
+            }
+            
+            .menu-item span, .logo span, .menu-title {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">Padhakoo</div>
+        
+        <div class="main-menu">
+            <div class="menu-title">MAIN MENU</div>
+            <a href="../pages/studentDash.html" class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="../pages/studentCourses.html" class="menu-item">
+                <i class="fas fa-book"></i>
+                <span>My Courses</span>
+            </a>
+            <a href="../pages/announcements.html" class="menu-item active">
+                <i class="fas fa-bullhorn"></i>
+                <span>Announcements</span>
+            </a>
+            <a href="../pages/quizPage.html" class="menu-item">
+                <i class="fas fa-tasks"></i>
+                <span>Quizzes</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Performance</span>
+            </a>
+            <a href="../pages/libraryPage.html" class="menu-item">
+                <i class="fas fa-book-open"></i>
+                <span>Library</span>
+            </a>
+        </div>
+        
+        <div class="calendar">
+            <div class="menu-title">CALENDAR</div>
+            <a href="../pages/schedule.html" class="menu-item">
+                <i class="fas fa-calendar"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="../pages/deadlines.html" class="menu-item">
+                <i class="fas fa-clock"></i>
+                <span>Deadlines</span>
+            </a>
+        </div>
+        
+        <div class="settings">
+            <div class="menu-title">SETTINGS</div>
+            <a href="../pages/profile.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="../pages/student-login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search courses, lessons...">
+            </div>
+            <div class="user-profile">
+                <img src="/api/placeholder/40/40" alt="User Profile">
+            </div>
+        </div>
+        
+        <!-- Deadlines Page -->
+        <div id="deadlines-page">
+            <h1 class="page-title">Deadlines</h1>
+            
+            <div class="filter-tabs">
+                <div class="filter-tab active" data-filter="all">All</div>
+                <div class="filter-tab" data-filter="upcoming">Upcoming</div>
+                <div class="filter-tab" data-filter="past">Past</div>
+            </div>
+            
+            <div class="deadlines-container">
+                <div class="deadline-card" data-status="upcoming">
+                    <div class="deadline-header">
+                        <div class="deadline-title">Python Programming Assignment</div>
+                        <div class="deadline-date">Due: April 22, 2025</div>
+                    </div>
+                    <div class="deadline-content">
+                        Implement a simple web scraper using Beautiful Soup and requests libraries. Your program should extract and analyze data from a given website.
+                    </div>
+                    <div class="deadline-course">Intro to Programming</div>
+                    <div class="deadline-status">
+                        <div class="status-indicator">
+                            <div class="progress" style="width: 75%;"></div>
+                        </div>
+                        <div class="status-text">75% completed</div>
+                    </div>
+                </div>
+                
+                <div class="deadline-card" data-status="upcoming">
+                    <div class="deadline-header">
+                        <div class="deadline-title">Data Structures Quiz</div>
+                        <div class="deadline-date">Due: April 24, 2025 • 10:00 AM</div>
+                    </div>
+                    <div class="deadline-content">
+                        Online quiz covering Binary Trees, AVL Trees, and Heaps. The quiz will consist of multiple choice and short answer questions.
+                    </div>
+                    <div class="deadline-course">Data Structures</div>
+                    <div class="deadline-status">
+                        <div class="status-indicator">
+                            <div class="progress" style="width: 60%;"></div>
+                        </div>
+                        <div class="status-text">Study progress: 60%</div>
+                    </div>
+                </div>
+                
+                <div class="deadline-card" data-status="upcoming">
+                    <div class="deadline-header">
+                        <div class="deadline-title">Circuit Design Project</div>
+                        <div class="deadline-date">Due: April 26, 2025</div>
+                    </div>
+                    <div class="deadline-content">
+                        Design and simulate a basic amplifier circuit using LTSpice. Submit your schematic and simulation results along with a brief report.
+                    </div>
+                    <div class="deadline-course">Electronics</div>
+                    <div class="deadline-status">
+                        <div class="status-indicator">
+                            <div class="progress" style="width: 30%;"></div>
+                        </div>
+                        <div class="status-text">30% completed</div>
+                    </div>
+                </div>
+                
+                <div class="deadline-card" data-status="past">
+                    <div class="deadline-header">
+                        <div class="deadline-title">Algorithm Analysis Report</div>
+                        <div class="deadline-date">Due: April 15, 2025 (Submitted)</div>
+                    </div>
+                    <div class="deadline-content">
+                        Compare and analyze the time and space complexity of sorting algorithms. Include empirical data from your implementations.
+                    </div>
+                    <div class="deadline-course">Algorithms</div>
+                    <div class="deadline-status">
+                        <div class="status-indicator">
+                            <div class="progress" style="width: 100%;"></div>
+                        </div>
+                        <div class="status-text">Submitted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality for deadlines
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const deadlineCards = document.querySelectorAll('.deadline-card');
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Show/hide deadline cards based on filter
+                    deadlineCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-status') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

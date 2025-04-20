@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Clash</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4F7FB;
+      --card: #ffffff;
+      --accent: #4267B2;
+      --text-primary: #1C1C1C;
+      --text-secondary: #555;
+      --border: #E0E0E0;
+      --success: #47B881;
+      --warning: #FFB020;
+      --error: #EC4C47;
+    }
+
+    [data-theme="dark"] {
+      --bg: #12181B;
+      --card: #1E2429;
+      --accent: #5F85DB;
+      --text-primary: #EDEDED;
+      --text-secondary: #A0A0A0;
+      --border: #2F3A42;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+    #root {
+      width: 90%;
+      max-width: 1200px;
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .left-panel, .right-panel {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    .left-panel {
+      flex: 2;
+    }
+    .right-panel {
+      flex: 1;
+    }
+    h1, h2, h3 {
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      outline: none;
+      background: #ffffff;
+      color: var(--text-primary);
+      transition: border-color 0.2s ease;
+    }
+    input:focus {
+      border-color: var(--accent);
+    }
+    .join-btn {
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      font-weight: bolder;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .join-btn:hover {
+      background: #365899;
+      transform: scale(1.03);
+    }
+    .popup {
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      font-size: 1.1rem;
+      z-index: 1000;
+      animation: fadeInPop 0.5s ease;
+    }
+    .room-id {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+    .question {
+      font-size: 1.4rem;
+      margin: 10px 0 20px;
+    }
+    .timer {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--success);
+    }
+    ul.options {
+      list-style: none;
+      padding: 0;
+    }
+    ul.options li {
+      background: var(--card);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      margin: 12px auto;
+      padding: 14px;
+      font-size: 1.1rem;
+      width: 90%;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    ul.options li:hover {
+      background: var(--accent);
+      color: white;
+    }
+    ul.options li.selected {
+      background: var(--accent);
+      color: white;
+    }
+    #leaderboard h3 {
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    #leaderboard div {
+      font-size: 1.1rem;
+      margin: 4px 0;
+      color: var(--text-secondary);
+    }
+    #game-summary {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+    @keyframes fadeInPop {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .hidden {
+      display: none;
+    }
+    .centered-panel {
+      margin: 0 auto;
+      flex: none;
+      width: 60%;
+    }
+    .final-winner {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--success);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="popup-container" class="popup hidden"></div>
+  <div id="root">
+    <div class="left-panel">
+      <div class="join-div fade-in" id="join-div">
+        <h1>Join a Room</h1>
+        <input type="text" id="name" placeholder="Enter Name" />
+        <input type="text" id="room" placeholder="Enter Room ID" />
+        <button class="join-btn" onclick="joinRoom()">Join Quiz</button>
+      </div>
+      <div class="quiz-div hidden fade-in" id="quiz-div">
+        <h2 class="room-id" id="room-id"></h2>
+        <div class="timer" id="timer"></div>
+        <div class="question" id="question"></div>
+        <ul class="options" id="options-list"></ul>
+      </div>
+    </div>
+    <div class="right-panel hidden" id="right-panel">
+      <div id="leaderboard" class="hidden leaderboard"></div>
+      <div id="game-summary" class="hidden fade-in"></div>
+    </div>
+  </div>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    // Replace the script section in your HTML with this:
+
+const socket = io("http://localhost:3000");
+let playerName = "";
+let currentRoom = "";
+let countdownInterval;
+
+function showPopup(message) {
+  const popup = document.getElementById("popup-container");
+  popup.innerText = message;
+  popup.classList.remove("hidden");
+  popup.style.display = "block";
+  setTimeout(() => {
+    popup.classList.add("hidden");
+    popup.style.display = "none";
+  }, 2500);
+}
+
+function joinRoom() {
+  playerName = document.getElementById('name').value;
+  currentRoom = document.getElementById('room').value;
+  
+  if (!playerName || !currentRoom) {
+    showPopup("Please enter both name and room ID.");
+    return;
+  }
+  
+  document.querySelector('.right-panel').classList.remove('hidden');
+  document.getElementById('join-div').classList.add('hidden');
+  document.getElementById('quiz-div').classList.remove('hidden');
+  document.getElementById('room-id').innerText = `Room: ${currentRoom}`;
+  showPopup(`${playerName} joined the game!`);
+  socket.emit("joinRoom", currentRoom, playerName);
+}
+
+socket.on("newQuestion", (data) => {
+  const { question, answers, timer } = data;
+  document.getElementById("question").innerText = question;
+  const optionsList = document.getElementById("options-list");
+  optionsList.innerHTML = '';
+  
+  answers.forEach((text, index) => {
+    const li = document.createElement('li');
+    li.innerText = text;
+    li.onclick = () => {
+      // Mark this option as selected
+      document.querySelectorAll('#options-list li').forEach(item => {
+        item.classList.remove('selected');
+      });
+      li.classList.add('selected');
+      
+      // Submit the answer
+      socket.emit("submitAnswer", currentRoom, index);
+      disableOptions();
+    };
+    optionsList.appendChild(li);
+  });
+  
+  startCountdown(timer || 10);
+});
+
+socket.on("answerResult", (data) => {
+  const { playerName, isCorrect, correctAnswer, scores } = data;
+  showPopup(`${playerName} answered ${isCorrect ? 'correctly! ✓' : 'incorrectly! ✗'}`);
+  updateLeaderboard(scores);
+  stopCountdown();
+});
+
+socket.on("updateScores", (scores) => {
+  updateLeaderboard(scores);
+});
+
+socket.on("playerLeft", (data) => {
+  showPopup(data.message);
+  updateLeaderboard(data.scores);
+});
+
+socket.on("gameOver", ({ winner, scores }) => {
+  showPopup(`Game Over! Winner is ${winner}`);
+  const summary = document.getElementById("game-summary");
+  const board = document.getElementById("leaderboard");
+  summary.innerHTML = `<div class='final-winner'>🏆 Winner: ${winner}</div><h2>Final Leaderboard</h2>` + board.innerHTML;
+  summary.classList.remove("hidden");
+  document.getElementById("quiz-div").classList.add("hidden");
+  
+  // Make the right panel centered and visible
+  const rightPanel = document.querySelector(".right-panel");
+  rightPanel.classList.remove("hidden");
+  rightPanel.classList.add("centered-panel");
+});
+
+function startCountdown(seconds) {
+  const timerElement = document.getElementById("timer");
+  let remaining = seconds;
+  timerElement.innerText = `Time Left: ${remaining}s`;
+  
+  // Clear any existing timer
+  clearInterval(countdownInterval);
+  
+  countdownInterval = setInterval(() => {
+    remaining--;
+    timerElement.innerText = `Time Left: ${remaining}s`;
+    
+    // Visual feedback as time runs low
+    if (remaining <= 3) {
+      timerElement.style.color = "#EC4C47"; // Red when time is low
+    } else {
+      timerElement.style.color = "var(--success)"; // Default color
+    }
+    
+    if (remaining <= 0) {
+      clearInterval(countdownInterval);
+    }
+  }, 1000);
+}
+
+function stopCountdown() {
+  clearInterval(countdownInterval);
+}
+
+function disableOptions() {
+  document.querySelectorAll('#options-list li').forEach(li => {
+    if (!li.classList.contains('selected')) {
+      li.style.pointerEvents = "none";
+      li.style.opacity = "0.5";
+    }
+  });
+}
+
+function updateLeaderboard(scores) {
+  const board = document.getElementById("leaderboard");
+  if (!scores || scores.length === 0) {
+    board.classList.add("hidden");
+    return;
+  }
+  
+  board.classList.remove("hidden");
+  board.innerHTML = "<h3>Leaderboard</h3>";
+  
+  scores.sort((a, b) => b.score - a.score).forEach(player => {
+    const p = document.createElement("div");
+    p.innerText = `${player.name}: ${player.score}`;
+    board.appendChild(p);
+  });
+}
+  </script>
+</body>
+</html>
